@@ -3,7 +3,7 @@ package com.api.ProjetoBD.models;
 import lombok.Data;
 
 @Data
-public class Corregedoria {
+public class AtoProcessualDocumentoModel {
     private String cnpj;
     private String numero;
     private String rua;

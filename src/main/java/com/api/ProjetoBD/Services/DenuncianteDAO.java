@@ -1,6 +1,6 @@
 package com.api.ProjetoBD.Services;
 
-import com.api.ProjetoBD.models.Denunciante;
+import com.api.ProjetoBD.models.AtribuicaoTarefaInvstigativaModel;
 import com.api.ProjetoBD.Repositories.DenuncianteRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,18 +16,18 @@ public class DenuncianteDAO {
     }
 
     // CREATE
-    public int save(Denunciante d) {
+    public int save(AtribuicaoTarefaInvstigativaModel d) {
         String sql = "INSERT INTO Denunciante (anonimo) VALUES (?)";
         return jdbcTemplate.update(sql, d.isAnonimo());
     }
 
     // READ ALL
-    public List<Denunciante> findAll() {
+    public List<AtribuicaoTarefaInvstigativaModel> findAll() {
         String sql = "SELECT * FROM Denunciante";
         return jdbcTemplate.query(sql, new DenuncianteRowMapper());
     }
 
-    public Denunciante findByAnonimo(boolean anonimo) {
+    public AtribuicaoTarefaInvstigativaModel findByAnonimo(boolean anonimo) {
         String sql = "SELECT * FROM Denunciante WHERE anonimo = ?";
         return jdbcTemplate.queryForObject(sql, new DenuncianteRowMapper(), anonimo);
     }

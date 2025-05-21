@@ -1,14 +1,14 @@
 package com.api.ProjetoBD.Repositories;
 
-import com.api.ProjetoBD.models.Secretaria;
+import com.api.ProjetoBD.models.ProcessoInvestigativoModel;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SecretariaRowMapper implements RowMapper<Secretaria> {
+public class SecretariaRowMapper implements RowMapper<ProcessoInvestigativoModel> {
     @Override
-    public Secretaria mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Secretaria sec = new Secretaria();
+    public ProcessoInvestigativoModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+        ProcessoInvestigativoModel sec = new ProcessoInvestigativoModel();
         sec.setMatricula(rs.getString("matricula"));
         return sec;
     }

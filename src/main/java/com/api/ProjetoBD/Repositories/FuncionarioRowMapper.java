@@ -1,14 +1,14 @@
 package com.api.ProjetoBD.Repositories;
 
-import com.api.ProjetoBD.models.Funcionario;
+import com.api.ProjetoBD.models.FuncionarioModel;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class FuncionarioRowMapper implements RowMapper<Funcionario> {
+public class FuncionarioRowMapper implements RowMapper<FuncionarioModel> {
     @Override
-    public Funcionario mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Funcionario f = new Funcionario();
+    public FuncionarioModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+        FuncionarioModel f = new FuncionarioModel();
         f.setMatricula(rs.getString("matricula"));
         f.setNome(rs.getString("nome"));
         return f;

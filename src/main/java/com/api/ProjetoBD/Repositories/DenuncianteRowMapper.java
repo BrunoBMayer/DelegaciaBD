@@ -1,14 +1,14 @@
 package com.api.ProjetoBD.Repositories;
 
-import com.api.ProjetoBD.models.Denunciante;
+import com.api.ProjetoBD.models.AtribuicaoTarefaInvstigativaModel;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DenuncianteRowMapper implements RowMapper<Denunciante> {
+public class DenuncianteRowMapper implements RowMapper<AtribuicaoTarefaInvstigativaModel> {
     @Override
-    public Denunciante mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Denunciante d = new Denunciante();
+    public AtribuicaoTarefaInvstigativaModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+        AtribuicaoTarefaInvstigativaModel d = new AtribuicaoTarefaInvstigativaModel();
         d.setAnonimo(rs.getBoolean("anonimo"));
         return d;
     }

@@ -1,6 +1,6 @@
 package com.api.ProjetoBD.Services;
 
-import com.api.ProjetoBD.models.Secretaria;
+import com.api.ProjetoBD.models.ProcessoInvestigativoModel;
 import com.api.ProjetoBD.Repositories.SecretariaRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,19 +17,19 @@ public class SecretariaDAO {
     }
 
     // CREATE
-    public int save(Secretaria sec) {
+    public int save(ProcessoInvestigativoModel sec) {
         String sql = "INSERT INTO Secretaria (matricula) VALUES (?)";
         return jdbcTemplate.update(sql, sec.getMatricula());
     }
 
     // READ ALL
-    public List<Secretaria> findAll() {
+    public List<ProcessoInvestigativoModel> findAll() {
         String sql = "SELECT * FROM Secretaria";
         return jdbcTemplate.query(sql, new SecretariaRowMapper());
     }
 
     // READ ONE
-    public Secretaria findByMatricula(String matricula) {
+    public ProcessoInvestigativoModel findByMatricula(String matricula) {
         String sql = "SELECT * FROM Secretaria WHERE matricula = ?";
         return jdbcTemplate.queryForObject(sql, new SecretariaRowMapper(), matricula);
     }

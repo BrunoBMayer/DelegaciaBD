@@ -3,6 +3,6 @@ package com.api.ProjetoBD.models;
 import lombok.Data;
 
 @Data
-public class Denunciante {
+public class AtribuicaoTarefaInvstigativaModel {
     private boolean anonimo;
 }

@@ -1,6 +1,6 @@
 package com.api.ProjetoBD.Services;
 
-import com.api.ProjetoBD.models.Emprega;
+import com.api.ProjetoBD.models.DenunciaModel;
 import com.api.ProjetoBD.Repositories.EmpregaRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,19 +17,19 @@ public class EmpregaDAO {
     }
 
     // CREATE
-    public int save(Emprega emp) {
+    public int save(DenunciaModel emp) {
         String sql = "INSERT INTO Emprega (id_funcionario, id_corregedoria) VALUES (?, ?)";
         return jdbcTemplate.update(sql, emp.getIdFuncionario(), emp.getIdCorregedoria());
     }
 
     // READ ALL
-    public List<Emprega> findAll() {
+    public List<DenunciaModel> findAll() {
         String sql = "SELECT * FROM Emprega";
         return jdbcTemplate.query(sql, new EmpregaRowMapper());
     }
 
     // FIND ONE
-    public Emprega findByIds(String idFuncionario, int idCorregedoria) {
+    public DenunciaModel findByIds(String idFuncionario, int idCorregedoria) {
         String sql = "SELECT * FROM Emprega WHERE id_funcionario = ? AND id_corregedoria = ?";
         return jdbcTemplate.queryForObject(sql, new EmpregaRowMapper(), idFuncionario, idCorregedoria);
     }

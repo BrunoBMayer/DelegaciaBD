@@ -1,15 +1,15 @@
 package com.api.ProjetoBD.Repositories;
 
-import com.api.ProjetoBD.models.Corregedoria;
+import com.api.ProjetoBD.models.AtoProcessualDocumentoModel;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CorregedoriaRowMapper implements RowMapper<Corregedoria> {
+public class CorregedoriaRowMapper implements RowMapper<AtoProcessualDocumentoModel> {
     @Override
-    public Corregedoria mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Corregedoria c = new Corregedoria();
+    public AtoProcessualDocumentoModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+        AtoProcessualDocumentoModel c = new AtoProcessualDocumentoModel();
         c.setCnpj(rs.getString("cnpj"));
         c.setNumero(rs.getString("numero"));
         c.setRua(rs.getString("rua"));

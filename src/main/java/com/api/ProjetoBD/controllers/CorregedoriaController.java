@@ -1,7 +1,7 @@
 package com.api.ProjetoBD.controllers;
 
 import com.api.ProjetoBD.Services.CorregedoriaDAO;
-import com.api.ProjetoBD.models.Corregedoria;
+import com.api.ProjetoBD.models.AtoProcessualDocumentoModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +26,13 @@ public class CorregedoriaController {
     // Show create form
     @GetMapping("/new")
     public String showForm(Model model) {
-        model.addAttribute("corregedoria", new Corregedoria());
+        model.addAttribute("corregedoria", new AtoProcessualDocumentoModel());
         return "corregedorias/form";  // form.html
     }
 
     // Save new
     @PostMapping
-    public String save(@ModelAttribute Corregedoria corregedoria) {
+    public String save(@ModelAttribute AtoProcessualDocumentoModel corregedoria) {
         corregedoriaDAO.save(corregedoria);
         return "redirect:/corregedorias";
     }
@@ -46,7 +46,7 @@ public class CorregedoriaController {
 
     // Update existing
     @PostMapping("/update")
-    public String update(@ModelAttribute Corregedoria corregedoria) {
+    public String update(@ModelAttribute AtoProcessualDocumentoModel corregedoria) {
         corregedoriaDAO.update(corregedoria);
         return "redirect:/corregedorias";
     }

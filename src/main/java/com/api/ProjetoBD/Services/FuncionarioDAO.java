@@ -1,6 +1,6 @@
 package com.api.ProjetoBD.Services;
 
-import com.api.ProjetoBD.models.Funcionario;
+import com.api.ProjetoBD.models.FuncionarioModel;
 import com.api.ProjetoBD.Repositories.FuncionarioRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,7 +17,7 @@ public class FuncionarioDAO {
     }
 
     // CREATE
-    public int save(Funcionario funcionario) {
+    public int save(FuncionarioModel funcionario) {
         String sql = "INSERT INTO Funcionario (matricula, nome) VALUES (?, ?)";
         return jdbcTemplate.update(sql,
                 funcionario.getMatricula(),
@@ -25,19 +25,19 @@ public class FuncionarioDAO {
     }
 
     // READ ALL
-    public List<Funcionario> findAll() {
+    public List<FuncionarioModel> findAll() {
         String sql = "SELECT * FROM Funcionario";
         return jdbcTemplate.query(sql, new FuncionarioRowMapper());
     }
 
     // READ ONE
-    public Funcionario findByMatricula(String matricula) {
+    public FuncionarioModel findByMatricula(String matricula) {
         String sql = "SELECT * FROM Funcionario WHERE matricula = ?";
         return jdbcTemplate.queryForObject(sql, new FuncionarioRowMapper(), matricula);
     }
 
     // UPDATE
-    public int update(Funcionario funcionario) {
+    public int update(FuncionarioModel funcionario) {
         String sql = "UPDATE Funcionario SET nome = ? WHERE matricula = ?";
         return jdbcTemplate.update(sql,
                 funcionario.getNome(),

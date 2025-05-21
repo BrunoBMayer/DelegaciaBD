@@ -1,6 +1,6 @@
 package com.api.ProjetoBD.Services;
 
-import com.api.ProjetoBD.models.Corregedoria;
+import com.api.ProjetoBD.models.AtoProcessualDocumentoModel;
 import com.api.ProjetoBD.Repositories.CorregedoriaRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,7 +17,7 @@ public class CorregedoriaDAO {
     }
 
     // CREATE
-    public int save(Corregedoria corregedoria) {
+    public int save(AtoProcessualDocumentoModel corregedoria) {
         String sql = "INSERT INTO Corregedoria (cnpj, numero, rua, bairro, cidade) VALUES (?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
                 corregedoria.getCnpj(),
@@ -28,19 +28,19 @@ public class CorregedoriaDAO {
     }
 
     // READ ALL
-    public List<Corregedoria> findAll() {
+    public List<AtoProcessualDocumentoModel> findAll() {
         String sql = "SELECT * FROM Corregedoria";
         return jdbcTemplate.query(sql, new CorregedoriaRowMapper());
     }
 
     // READ ONE
-    public Corregedoria findByCnpj(String cnpj) {
+    public AtoProcessualDocumentoModel findByCnpj(String cnpj) {
         String sql = "SELECT * FROM Corregedoria WHERE cnpj = ?";
         return jdbcTemplate.queryForObject(sql, new CorregedoriaRowMapper(), cnpj);
     }
 
     // UPDATE
-    public int update(Corregedoria corregedoria) {
+    public int update(AtoProcessualDocumentoModel corregedoria) {
         String sql = "UPDATE Corregedoria SET numero = ?, rua = ?, bairro = ?, cidade = ? WHERE cnpj = ?";
         return jdbcTemplate.update(sql,
                 corregedoria.getNumero(),

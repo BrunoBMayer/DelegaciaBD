@@ -3,6 +3,6 @@ package com.api.ProjetoBD.models;
 import lombok.Data;
 
 @Data
-public class Secretaria {
+public class ProcessoInvestigativoModel {
     private String matricula;  // same as Funcionario PK
 }
