@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Secretaria Form</title>
+</head>
+<body>
+<h1>Add Secretaria</h1>
+
+<form th:action="@{/secretarias}" th:object="${secretaria}" method="post">
+    <div>
+        <label>Matricula:</label>
+        <input type="text" th:field="*{matricula}" required/>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+
+<a th:href="@{/secretarias}">Back to list</a>
+</body>
+</html>

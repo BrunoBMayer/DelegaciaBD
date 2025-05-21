@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Funcionario Form</title>
+</head>
+<body>
+<h1 th:text="${funcionario.matricula == null} ? 'Add Funcionario' : 'Edit Funcionario'"></h1>
+
+<form th:action="@{${funcionario.matricula == null} ? '/funcionarios' : '/funcionarios/update'}" th:object="${funcionario}" method="post">
+    <div>
+        <label>Matricula:</label>
+        <input type="text" th:field="*{matricula}" th:readonly="${funcionario.matricula != null}" required/>
+    </div>
+    <div>
+        <label>Nome:</label>
+        <input type="text" th:field="*{nome}" required/>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+
+<a th:href="@{/funcionarios}">Back to list</a>
+</body>
+</html>

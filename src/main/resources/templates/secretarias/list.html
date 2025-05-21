@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Secretarias List</title>
+</head>
+<body>
+<h1>Secretarias</h1>
+<a th:href="@{/secretarias/new}">Add New Secretaria</a>
+<table border="1">
+    <tr>
+        <th>Matricula</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="s : ${secretarias}">
+        <td th:text="${s.matricula}"></td>
+        <td>
+            <a th:href="@{'/secretarias/delete/' + ${s.matricula}}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

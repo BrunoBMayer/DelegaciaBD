@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Corregedoria Form</title>
+</head>
+<body>
+<h1 th:text="${corregedoria.cnpj == null} ? 'Add Corregedoria' : 'Edit Corregedoria'"></h1>
+
+<form th:action="@{${corregedoria.cnpj == null} ? '/corregedorias' : '/corregedorias/update'}" th:object="${corregedoria}" method="post">
+    <div>
+        <label>CNPJ:</label>
+        <input type="text" th:field="*{cnpj}" th:readonly="${corregedoria.cnpj != null}" required/>
+    </div>
+    <div>
+        <label>Numero:</label>
+        <input type="text" th:field="*{numero}" required/>
+    </div>
+    <div>
+        <label>Rua:</label>
+        <input type="text" th:field="*{rua}" required/>
+    </div>
+    <div>
+        <label>Bairro:</label>
+        <input type="text" th:field="*{bairro}" required/>
+    </div>
+    <div>
+        <label>Cidade:</label>
+        <input type="text" th:field="*{cidade}" required/>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+
+<a th:href="@{/corregedorias}">Back to list</a>
+</body>
+</html>

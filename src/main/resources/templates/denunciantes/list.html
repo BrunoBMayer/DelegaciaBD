@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Denunciantes List</title>
+</head>
+<body>
+<h1>Denunciantes</h1>
+<a th:href="@{/denunciantes/new}">Add New Denunciante</a>
+<table border="1">
+    <tr>
+        <th>Anonimo</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="d : ${denunciantes}">
+        <td th:text="${d.anonimo}"></td>
+        <td>
+            <a th:href="@{'/denunciantes/delete/' + ${d.anonimo}}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

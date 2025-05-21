@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Funcionarios List</title>
+</head>
+<body>
+<h1>Funcionarios</h1>
+<a th:href="@{/funcionarios/new}">Add New Funcionario</a>
+<table border="1">
+    <tr>
+        <th>Matricula</th>
+        <th>Nome</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="f : ${funcionarios}">
+        <td th:text="${f.matricula}"></td>
+        <td th:text="${f.nome}"></td>
+        <td>
+            <a th:href="@{'/funcionarios/edit/' + ${f.matricula}}">Edit</a>
+            <a th:href="@{'/funcionarios/delete/' + ${f.matricula}}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

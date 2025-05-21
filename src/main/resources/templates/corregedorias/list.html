@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Corregedorias List</title>
+</head>
+<body>
+<h1>Corregedorias</h1>
+<a th:href="@{/corregedorias/new}">Add New Corregedoria</a>
+<table border="1">
+    <tr>
+        <th>CNPJ</th>
+        <th>Numero</th>
+        <th>Rua</th>
+        <th>Bairro</th>
+        <th>Cidade</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="c : ${corregedorias}">
+        <td th:text="${c.cnpj}"></td>
+        <td th:text="${c.numero}"></td>
+        <td th:text="${c.rua}"></td>
+        <td th:text="${c.bairro}"></td>
+        <td th:text="${c.cidade}"></td>
+        <td>
+            <a th:href="@{'/corregedorias/edit/' + ${c.cnpj}}">Edit</a>
+            <a th:href="@{'/corregedorias/delete/' + ${c.cnpj}}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

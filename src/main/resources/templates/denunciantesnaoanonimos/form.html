@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Denunciante Não Anônimo Form</title>
+</head>
+<body>
+<h1>Add Denunciante Não Anônimo</h1>
+
+<form th:action="@{/denunciantesnaoanonimos}" th:object="${denuncianteNaoAnonimo}" method="post">
+    <div>
+        <label>CPF:</label>
+        <input type="text" th:field="*{cpf}" required/>
+    </div>
+    <div>
+        <label>Denunciante Anonimo:</label>
+        <input type="checkbox" th:field="*{denuncianteAnonimo}"/>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+
+<a th:href="@{/denunciantesnaoanonimos}">Back to list</a>
+</body>
+</html>

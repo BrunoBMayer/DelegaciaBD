@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Investigativos List</title>
+</head>
+<body>
+<h1>Investigativos</h1>
+<a th:href="@{/investigativos/new}">Add New Investigativo</a>
+<table border="1">
+    <tr>
+        <th>Matricula</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="i : ${investigativos}">
+        <td th:text="${i.matricula}"></td>
+        <td>
+            <a th:href="@{'/investigativos/delete/' + ${i.matricula}}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

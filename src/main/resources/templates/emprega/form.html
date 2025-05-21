@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Emprega Form</title>
+</head>
+<body>
+<h1>Add Emprega</h1>
+
+<form th:action="@{/emprega}" th:object="${emprega}" method="post">
+    <div>
+        <label>Funcionario ID:</label>
+        <input type="text" th:field="*{idFuncionario}" required/>
+    </div>
+    <div>
+        <label>Corregedoria ID:</label>
+        <input type="number" th:field="*{idCorregedoria}" required/>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+
+<a th:href="@{/emprega}">Back to list</a>
+</body>
+</html>
