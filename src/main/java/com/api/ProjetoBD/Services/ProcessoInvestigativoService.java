@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class SecretariaDAO {
+public class ProcessoInvestigativoService {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public SecretariaDAO(JdbcTemplate jdbcTemplate) {
+    public ProcessoInvestigativoService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

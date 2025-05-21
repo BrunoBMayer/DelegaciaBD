@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class DenuncianteNaoAnonimoDAO {
+public class CorregedoriaService {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public DenuncianteNaoAnonimoDAO(JdbcTemplate jdbcTemplate) {
+    public CorregedoriaService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

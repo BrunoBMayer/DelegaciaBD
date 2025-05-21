@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CorregedoriaDAO {
+public class AtoProcessualDocumentoService {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public CorregedoriaDAO(JdbcTemplate jdbcTemplate) {
+    public AtoProcessualDocumentoService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class DenuncianteDAO {
+public class AtribuicaoTarefaInvestigativaService {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public DenuncianteDAO(JdbcTemplate jdbcTemplate) {
+    public AtribuicaoTarefaInvestigativaService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

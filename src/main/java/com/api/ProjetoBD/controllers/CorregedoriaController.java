@@ -1,6 +1,6 @@
 package com.api.ProjetoBD.controllers;
 
-import com.api.ProjetoBD.Services.CorregedoriaDAO;
+import com.api.ProjetoBD.Services.AtoProcessualDocumentoService;
 import com.api.ProjetoBD.models.AtoProcessualDocumentoModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/corregedorias")
 public class CorregedoriaController {
 
-    private final CorregedoriaDAO corregedoriaDAO;
+    private final AtoProcessualDocumentoService corregedoriaDAO;
 
-    public CorregedoriaController(CorregedoriaDAO corregedoriaDAO) {
+    public CorregedoriaController(AtoProcessualDocumentoService corregedoriaDAO) {
         this.corregedoriaDAO = corregedoriaDAO;
     }
 
