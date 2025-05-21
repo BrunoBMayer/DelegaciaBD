@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DenuncianteNaoAnonimoRowMapper implements RowMapper<CorregdoriaModel> {
+public class AtribuicaoTarefaInvestigativaRepository implements RowMapper<CorregdoriaModel> {
     @Override
     public CorregdoriaModel mapRow(ResultSet rs, int rowNum) throws SQLException {
         CorregdoriaModel d = new CorregdoriaModel();

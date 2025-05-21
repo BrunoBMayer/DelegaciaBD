@@ -1,7 +1,7 @@
 package com.api.ProjetoBD.Services;
 
 import com.api.ProjetoBD.models.AtribuicaoTarefaInvstigativaModel;
-import com.api.ProjetoBD.Repositories.DenuncianteRowMapper;
+import com.api.ProjetoBD.Repositories.CorregedoriaRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -24,12 +24,12 @@ public class DenuncianteDAO {
     // READ ALL
     public List<AtribuicaoTarefaInvstigativaModel> findAll() {
         String sql = "SELECT * FROM Denunciante";
-        return jdbcTemplate.query(sql, new DenuncianteRowMapper());
+        return jdbcTemplate.query(sql, new CorregedoriaRepository());
     }
 
     public AtribuicaoTarefaInvstigativaModel findByAnonimo(boolean anonimo) {
         String sql = "SELECT * FROM Denunciante WHERE anonimo = ?";
-        return jdbcTemplate.queryForObject(sql, new DenuncianteRowMapper(), anonimo);
+        return jdbcTemplate.queryForObject(sql, new CorregedoriaRepository(), anonimo);
     }
 
 

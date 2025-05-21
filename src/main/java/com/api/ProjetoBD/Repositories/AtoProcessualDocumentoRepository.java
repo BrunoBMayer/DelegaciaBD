@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CorregedoriaRowMapper implements RowMapper<AtoProcessualDocumentoModel> {
+public class AtoProcessualDocumentoRepository implements RowMapper<AtoProcessualDocumentoModel> {
     @Override
     public AtoProcessualDocumentoModel mapRow(ResultSet rs, int rowNum) throws SQLException {
         AtoProcessualDocumentoModel c = new AtoProcessualDocumentoModel();

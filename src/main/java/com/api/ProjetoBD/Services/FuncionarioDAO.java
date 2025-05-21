@@ -1,7 +1,7 @@
 package com.api.ProjetoBD.Services;
 
 import com.api.ProjetoBD.models.FuncionarioModel;
-import com.api.ProjetoBD.Repositories.FuncionarioRowMapper;
+import com.api.ProjetoBD.Repositories.EnvolvimentoProcessoRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -27,13 +27,13 @@ public class FuncionarioDAO {
     // READ ALL
     public List<FuncionarioModel> findAll() {
         String sql = "SELECT * FROM Funcionario";
-        return jdbcTemplate.query(sql, new FuncionarioRowMapper());
+        return jdbcTemplate.query(sql, new EnvolvimentoProcessoRepository());
     }
 
     // READ ONE
     public FuncionarioModel findByMatricula(String matricula) {
         String sql = "SELECT * FROM Funcionario WHERE matricula = ?";
-        return jdbcTemplate.queryForObject(sql, new FuncionarioRowMapper(), matricula);
+        return jdbcTemplate.queryForObject(sql, new EnvolvimentoProcessoRepository(), matricula);
     }
 
     // UPDATE

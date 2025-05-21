@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class InvestigativoRowMapper implements RowMapper<PessoaModel> {
+public class FuncionarioRepository implements RowMapper<PessoaModel> {
     @Override
     public PessoaModel mapRow(ResultSet rs, int rowNum) throws SQLException {
         PessoaModel inv = new PessoaModel();

@@ -1,7 +1,7 @@
 package com.api.ProjetoBD.Services;
 
 import com.api.ProjetoBD.models.CorregdoriaModel;
-import com.api.ProjetoBD.Repositories.DenuncianteNaoAnonimoRowMapper;
+import com.api.ProjetoBD.Repositories.AtribuicaoTarefaInvestigativaRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -24,13 +24,13 @@ public class DenuncianteNaoAnonimoDAO {
     // READ ALL
     public List<CorregdoriaModel> findAll() {
         String sql = "SELECT * FROM DenuncianteNaoAnonimo";
-        return jdbcTemplate.query(sql, new DenuncianteNaoAnonimoRowMapper());
+        return jdbcTemplate.query(sql, new AtribuicaoTarefaInvestigativaRepository());
     }
 
     // READ ONE
     public CorregdoriaModel findByCpfAndAnonimo(String cpf, boolean denuncianteAnonimo) {
         String sql = "SELECT * FROM DenuncianteNaoAnonimo WHERE cpf = ? AND denunciante_anonimo = ?";
-        return jdbcTemplate.queryForObject(sql, new DenuncianteNaoAnonimoRowMapper(), cpf, denuncianteAnonimo);
+        return jdbcTemplate.queryForObject(sql, new AtribuicaoTarefaInvestigativaRepository(), cpf, denuncianteAnonimo);
     }
 
     // DELETE

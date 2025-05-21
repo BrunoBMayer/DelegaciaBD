@@ -1,7 +1,7 @@
 package com.api.ProjetoBD.Services;
 
 import com.api.ProjetoBD.models.AtoProcessualDocumentoModel;
-import com.api.ProjetoBD.Repositories.CorregedoriaRowMapper;
+import com.api.ProjetoBD.Repositories.AtoProcessualDocumentoRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -30,13 +30,13 @@ public class CorregedoriaDAO {
     // READ ALL
     public List<AtoProcessualDocumentoModel> findAll() {
         String sql = "SELECT * FROM Corregedoria";
-        return jdbcTemplate.query(sql, new CorregedoriaRowMapper());
+        return jdbcTemplate.query(sql, new AtoProcessualDocumentoRepository());
     }
 
     // READ ONE
     public AtoProcessualDocumentoModel findByCnpj(String cnpj) {
         String sql = "SELECT * FROM Corregedoria WHERE cnpj = ?";
-        return jdbcTemplate.queryForObject(sql, new CorregedoriaRowMapper(), cnpj);
+        return jdbcTemplate.queryForObject(sql, new AtoProcessualDocumentoRepository(), cnpj);
     }
 
     // UPDATE
