@@ -18,7 +18,7 @@ public class AtoProcessualDocumentoService {
 
     // CREATE
     public int save(AtoProcessualDocumentoModel corregedoria) {
-        String sql = "INSERT INTO Corregedoria (cnpj, numero, rua, bairro, cidade) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CorregedoriaModel (cnpj, numero, rua, bairro, cidade) VALUES (?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
                 corregedoria.getCnpj(),
                 corregedoria.getNumero(),
@@ -29,19 +29,19 @@ public class AtoProcessualDocumentoService {
 
     // READ ALL
     public List<AtoProcessualDocumentoModel> findAll() {
-        String sql = "SELECT * FROM Corregedoria";
+        String sql = "SELECT * FROM CorregedoriaModel";
         return jdbcTemplate.query(sql, new AtoProcessualDocumentoRepository());
     }
 
     // READ ONE
     public AtoProcessualDocumentoModel findByCnpj(String cnpj) {
-        String sql = "SELECT * FROM Corregedoria WHERE cnpj = ?";
+        String sql = "SELECT * FROM CorregedoriaModel WHERE cnpj = ?";
         return jdbcTemplate.queryForObject(sql, new AtoProcessualDocumentoRepository(), cnpj);
     }
 
     // UPDATE
     public int update(AtoProcessualDocumentoModel corregedoria) {
-        String sql = "UPDATE Corregedoria SET numero = ?, rua = ?, bairro = ?, cidade = ? WHERE cnpj = ?";
+        String sql = "UPDATE CorregedoriaModel SET numero = ?, rua = ?, bairro = ?, cidade = ? WHERE cnpj = ?";
         return jdbcTemplate.update(sql,
                 corregedoria.getNumero(),
                 corregedoria.getRua(),
@@ -52,7 +52,7 @@ public class AtoProcessualDocumentoService {
 
     // DELETE
     public int deleteByCnpj(String cnpj) {
-        String sql = "DELETE FROM Corregedoria WHERE cnpj = ?";
+        String sql = "DELETE FROM CorregedoriaModel WHERE cnpj = ?";
         return jdbcTemplate.update(sql, cnpj);
     }
 }

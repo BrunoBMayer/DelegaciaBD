@@ -1,9 +1,0 @@
-package com.api.ProjetoBD.models;
-
-import lombok.Data;
-
-@Data
-public class CorregdoriaModel {
-    private String cpf;
-    private boolean denuncianteAnonimo;  // FK to Denunciante
-}
