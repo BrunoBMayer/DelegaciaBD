@@ -1,13 +1,14 @@
+//OK
 package com.api.ProjetoBD.Services;
 
 import com.api.ProjetoBD.models.DenunciaModel;
 import com.api.ProjetoBD.Repositories.DenunciaRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class DenunciaService {
 
     private final JdbcTemplate jdbcTemplate;
@@ -16,27 +17,46 @@ public class DenunciaService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // CREATE
-    public int save(DenunciaModel emp) {
-        String sql = "INSERT INTO Emprega (id_funcionario, id_corregedoria) VALUES (?, ?)";
-        return jdbcTemplate.update(sql, emp.getIdFuncionario(), emp.getIdCorregedoria());
+    public int save(DenunciaModel d) {
+        String sql = "INSERT INTO Denuncia (id_denuncia, data_ocorrencia, data_registro_sistema, descricao_fato, status_denuncia, denunciante_anonimo, fk_Funcionario_matricula_registrou, fk_Pessoa_id_pessoa, fk_Funcionario_matricula_avaliador) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql,
+                d.getIdDenuncia(),
+                d.getDataOcorrencia(),
+                d.getDataRegistroSistema(),
+                d.getDescricaoFato(),
+                d.getStatusDenuncia(),
+                d.isDenuncianteAnonimo(),
+                d.getFkFuncionarioMatriculaRegistrou(),
+                d.getFkPessoaIdPessoa(),
+                d.getFkFuncionarioMatriculaAvaliador());
     }
 
-    // READ ALL
     public List<DenunciaModel> findAll() {
-        String sql = "SELECT * FROM Emprega";
+        String sql = "SELECT * FROM Denuncia";
         return jdbcTemplate.query(sql, new DenunciaRepository());
     }
 
-    // FIND ONE
-    public DenunciaModel findByIds(String idFuncionario, int idCorregedoria) {
-        String sql = "SELECT * FROM Emprega WHERE id_funcionario = ? AND id_corregedoria = ?";
-        return jdbcTemplate.queryForObject(sql, new DenunciaRepository(), idFuncionario, idCorregedoria);
+    public DenunciaModel findById(String id) {
+        String sql = "SELECT * FROM Denuncia WHERE id_denuncia = ?";
+        return jdbcTemplate.queryForObject(sql, new DenunciaRepository(), id);
     }
 
-    // DELETE
-    public int deleteByIds(String idFuncionario, int idCorregedoria) {
-        String sql = "DELETE FROM Emprega WHERE id_funcionario = ? AND id_corregedoria = ?";
-        return jdbcTemplate.update(sql, idFuncionario, idCorregedoria);
+    public int update(DenunciaModel d) {
+        String sql = "UPDATE Denuncia SET data_ocorrencia = ?, data_registro_sistema = ?, descricao_fato = ?, status_denuncia = ?, denunciante_anonimo = ?, fk_Funcionario_matricula_registrou = ?, fk_Pessoa_id_pessoa = ?, fk_Funcionario_matricula_avaliador = ? WHERE id_denuncia = ?";
+        return jdbcTemplate.update(sql,
+                d.getDataOcorrencia(),
+                d.getDataRegistroSistema(),
+                d.getDescricaoFato(),
+                d.getStatusDenuncia(),
+                d.isDenuncianteAnonimo(),
+                d.getFkFuncionarioMatriculaRegistrou(),
+                d.getFkPessoaIdPessoa(),
+                d.getFkFuncionarioMatriculaAvaliador(),
+                d.getIdDenuncia());
+    }
+
+    public int deleteById(String id) {
+        String sql = "DELETE FROM Denuncia WHERE id_denuncia = ?";
+        return jdbcTemplate.update(sql, id);
     }
 }
