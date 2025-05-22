@@ -1,3 +1,4 @@
+//OK
 package com.api.ProjetoBD.Repositories;
 
 import com.api.ProjetoBD.models.AtoProcessualDocumentoModel;

@@ -1,3 +1,4 @@
+//OK
 package com.api.ProjetoBD.models;
 
 import java.sql.Date;
@@ -10,7 +11,6 @@ public class AtribuicaoTarefaInvestigativaModel {
     private String statusTarefa;
     private String fkProcessoInvestigativoIdProcesso;
     private String fkFuncionarioMatriculaDesignado;
-    private boolean anonimo;
 
     public String getIdAtribuicao() {
         return idAtribuicao;
@@ -66,13 +66,5 @@ public class AtribuicaoTarefaInvestigativaModel {
 
     public void setFkFuncionarioMatriculaDesignado(String fkFuncionarioMatriculaDesignado) {
         this.fkFuncionarioMatriculaDesignado = fkFuncionarioMatriculaDesignado;
-    }
-
-    public boolean isAnonimo() {
-        return anonimo;
-    }
-
-    public void setAnonimo(boolean anonimo) {
-        this.anonimo = anonimo;
     }
 }
