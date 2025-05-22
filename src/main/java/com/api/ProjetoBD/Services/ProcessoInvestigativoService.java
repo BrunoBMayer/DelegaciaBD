@@ -1,7 +1,7 @@
 package com.api.ProjetoBD.Services;
 
 import com.api.ProjetoBD.models.ProcessoInvestigativoModel;
-import com.api.ProjetoBD.Repositories.PessoaModel;
+import com.api.ProjetoBD.Repositories.PessoaRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -25,13 +25,13 @@ public class ProcessoInvestigativoService {
     // READ ALL
     public List<ProcessoInvestigativoModel> findAll() {
         String sql = "SELECT * FROM Secretaria";
-        return jdbcTemplate.query(sql, new PessoaModel());
+        return jdbcTemplate.query(sql, new PessoaRepository());
     }
 
     // READ ONE
     public ProcessoInvestigativoModel findByMatricula(String matricula) {
         String sql = "SELECT * FROM Secretaria WHERE matricula = ?";
-        return jdbcTemplate.queryForObject(sql, new PessoaModel(), matricula);
+        return jdbcTemplate.queryForObject(sql, new PessoaRepository(), matricula);
     }
 
     // DELETE
