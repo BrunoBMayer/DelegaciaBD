@@ -1,60 +1,49 @@
+//OK
 package com.api.ProjetoBD.controllers;
 
-import com.api.ProjetoBD.Services.AtoProcessualDocumentoService;
-import com.api.ProjetoBD.models.AtoProcessualDocumentoModel;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import com.api.ProjetoBD.Services.CorregedoriaService;
+import com.api.ProjetoBD.models.CorregedoriaModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/corregedorias")
 public class CorregedoriaController {
 
-    private final AtoProcessualDocumentoService corregedoriaDAO;
+    private final CorregedoriaService service;
 
-    public CorregedoriaController(AtoProcessualDocumentoService corregedoriaDAO) {
-        this.corregedoriaDAO = corregedoriaDAO;
+    public CorregedoriaController(CorregedoriaService service) {
+        this.service = service;
     }
 
-    // List all
-    @GetMapping
-    public String list(Model model) {
-        model.addAttribute("corregedorias", corregedoriaDAO.findAll());
-        return "corregedorias/list";  // list.html
-    }
-
-    // Show create form
-    @GetMapping("/new")
-    public String showForm(Model model) {
-        model.addAttribute("corregedoria", new AtoProcessualDocumentoModel());
-        return "corregedorias/form";  // form.html
-    }
-
-    // Save new
     @PostMapping
-    public String save(@ModelAttribute AtoProcessualDocumentoModel corregedoria) {
-        corregedoriaDAO.save(corregedoria);
-        return "redirect:/corregedorias";
+    public ResponseEntity<String> salvar(@RequestBody CorregedoriaModel c) {
+        service.save(c);
+        return ResponseEntity.ok("Corregedoria salva com sucesso");
     }
 
-    // Edit form
-    @GetMapping("/edit/{cnpj}")
-    public String edit(@PathVariable String cnpj, Model model) {
-        model.addAttribute("corregedoria", corregedoriaDAO.findByCnpj(cnpj));
-        return "corregedorias/form";  // reuse the form
+    @GetMapping
+    public List<CorregedoriaModel> listar() {
+        return service.findAll();
     }
 
-    // Update existing
-    @PostMapping("/update")
-    public String update(@ModelAttribute AtoProcessualDocumentoModel corregedoria) {
-        corregedoriaDAO.update(corregedoria);
-        return "redirect:/corregedorias";
+    @GetMapping("/{cnpj}")
+    public CorregedoriaModel buscar(@PathVariable String cnpj) {
+        return service.findByCnpj(cnpj);
     }
 
-    // Delete
-    @GetMapping("/delete/{cnpj}")
-    public String delete(@PathVariable String cnpj) {
-        corregedoriaDAO.deleteByCnpj(cnpj);
-        return "redirect:/corregedorias";
+    @PutMapping("/{cnpj}")
+    public ResponseEntity<String> atualizar(@PathVariable String cnpj, @RequestBody CorregedoriaModel c) {
+        c.setCnpj(cnpj);
+        service.update(c);
+        return ResponseEntity.ok("Corregedoria atualizada");
+    }
+
+    @DeleteMapping("/{cnpj}")
+    public ResponseEntity<String> deletar(@PathVariable String cnpj) {
+        service.deleteByCnpj(cnpj);
+        return ResponseEntity.ok("Corregedoria deletada");
     }
 }

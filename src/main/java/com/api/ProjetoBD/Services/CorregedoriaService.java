@@ -1,12 +1,14 @@
+//OK
 package com.api.ProjetoBD.Services;
 
-import com.api.ProjetoBD.models.CorregdoriaModel;
-import com.api.ProjetoBD.Repositories.AtribuicaoTarefaInvestigativaRepository;
+import com.api.ProjetoBD.models.CorregedoriaModel;
+import com.api.ProjetoBD.Repositories.CorregedoriaRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-@Repository
+@Service
 public class CorregedoriaService {
 
     private final JdbcTemplate jdbcTemplate;
@@ -15,27 +17,38 @@ public class CorregedoriaService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // CREATE
-    public int save(CorregdoriaModel d) {
-        String sql = "INSERT INTO DenuncianteNaoAnonimo (cpf, denunciante_anonimo) VALUES (?, ?)";
-        return jdbcTemplate.update(sql, d.getCpf(), d.isDenuncianteAnonimo());
+    public int save(CorregedoriaModel c) {
+        String sql = "INSERT INTO Corregedoria (CNPJ, nome, endereco_rua, endereco_bairro, endereco_cidade) VALUES (?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql,
+                c.getCnpj(),
+                c.getNome(),
+                c.getEnderecoRua(),
+                c.getEnderecoBairro(),
+                c.getEnderecoCidade());
     }
 
-    // READ ALL
-    public List<CorregdoriaModel> findAll() {
-        String sql = "SELECT * FROM DenuncianteNaoAnonimo";
-        return jdbcTemplate.query(sql, new AtribuicaoTarefaInvestigativaRepository());
+    public List<CorregedoriaModel> findAll() {
+        String sql = "SELECT * FROM Corregedoria";
+        return jdbcTemplate.query(sql, new CorregedoriaRepository());
     }
 
-    // READ ONE
-    public CorregdoriaModel findByCpfAndAnonimo(String cpf, boolean denuncianteAnonimo) {
-        String sql = "SELECT * FROM DenuncianteNaoAnonimo WHERE cpf = ? AND denunciante_anonimo = ?";
-        return jdbcTemplate.queryForObject(sql, new AtribuicaoTarefaInvestigativaRepository(), cpf, denuncianteAnonimo);
+    public CorregedoriaModel findByCnpj(String cnpj) {
+        String sql = "SELECT * FROM Corregedoria WHERE CNPJ = ?";
+        return jdbcTemplate.queryForObject(sql, new CorregedoriaRepository(), cnpj);
     }
 
-    // DELETE
-    public int deleteByCpfAndAnonimo(String cpf, boolean denuncianteAnonimo) {
-        String sql = "DELETE FROM DenuncianteNaoAnonimo WHERE cpf = ? AND denunciante_anonimo = ?";
-        return jdbcTemplate.update(sql, cpf, denuncianteAnonimo);
+    public int update(CorregedoriaModel c) {
+        String sql = "UPDATE Corregedoria SET nome = ?, endereco_rua = ?, endereco_bairro = ?, endereco_cidade = ? WHERE CNPJ = ?";
+        return jdbcTemplate.update(sql,
+                c.getNome(),
+                c.getEnderecoRua(),
+                c.getEnderecoBairro(),
+                c.getEnderecoCidade(),
+                c.getCnpj());
+    }
+
+    public int deleteByCnpj(String cnpj) {
+        String sql = "DELETE FROM Corregedoria WHERE CNPJ = ?";
+        return jdbcTemplate.update(sql, cnpj);
     }
 }

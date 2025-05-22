@@ -1,6 +1,5 @@
+// OK
 package com.api.ProjetoBD.models;
-
-import java.sql.Date;
 
 public class CorregedoriaModel {
     private String cnpj;
