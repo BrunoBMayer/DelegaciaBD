@@ -3,11 +3,11 @@ package com.api.ProjetoBD.Services;
 import com.api.ProjetoBD.models.AtoProcessualDocumentoModel;
 import com.api.ProjetoBD.Repositories.AtoProcessualDocumentoRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class AtoProcessualDocumentoService {
 
     private final JdbcTemplate jdbcTemplate;
@@ -16,43 +16,43 @@ public class AtoProcessualDocumentoService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // CREATE
-    public int save(AtoProcessualDocumentoModel corregedoria) {
-        String sql = "INSERT INTO CorregedoriaModel (cnpj, numero, rua, bairro, cidade) VALUES (?, ?, ?, ?, ?)";
+    public int save(AtoProcessualDocumentoModel a) {
+        String sql = "INSERT INTO AtoProcessualDocumento (id_ato_documento, tipo_ato_documento, data_criacao_ato, conteudo_resumido_ou_referencia_arquivo, fk_processo_investigativo_id_processo, fk_funcionario_matricula_autor, fk_pessoa_id_alvo_ato) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
-                corregedoria.getCnpj(),
-                corregedoria.getNumero(),
-                corregedoria.getRua(),
-                corregedoria.getBairro(),
-                corregedoria.getCidade());
+                a.getIdAtoDocumento(),
+                a.getTipoAtoDocumento(),
+                a.getDataCriacaoAto(),
+                a.getConteudoResumidoOuReferenciaArquivo(),
+                a.getFkProcessoInvestigativoIdProcesso(),
+                a.getFkFuncionarioMatriculaAutor(),
+                a.getFkPessoaIdAlvoAto());
     }
 
-    // READ ALL
     public List<AtoProcessualDocumentoModel> findAll() {
-        String sql = "SELECT * FROM CorregedoriaModel";
+        String sql = "SELECT * FROM AtoProcessualDocumento";
         return jdbcTemplate.query(sql, new AtoProcessualDocumentoRepository());
     }
 
-    // READ ONE
-    public AtoProcessualDocumentoModel findByCnpj(String cnpj) {
-        String sql = "SELECT * FROM CorregedoriaModel WHERE cnpj = ?";
-        return jdbcTemplate.queryForObject(sql, new AtoProcessualDocumentoRepository(), cnpj);
+    public AtoProcessualDocumentoModel findById(String id) {
+        String sql = "SELECT * FROM AtoProcessualDocumento WHERE id_ato_documento = ?";
+        return jdbcTemplate.queryForObject(sql, new AtoProcessualDocumentoRepository(), id);
     }
 
-    // UPDATE
-    public int update(AtoProcessualDocumentoModel corregedoria) {
-        String sql = "UPDATE CorregedoriaModel SET numero = ?, rua = ?, bairro = ?, cidade = ? WHERE cnpj = ?";
+    public int update(AtoProcessualDocumentoModel a) {
+        String sql = "UPDATE AtoProcessualDocumento SET tipo_ato_documento = ?, data_criacao_ato = ?, conteudo_resumido_ou_referencia_arquivo = ?, fk_processo_investigativo_id_processo = ?, fk_funcionario_matricula_autor = ?, fk_pessoa_id_alvo_ato = ? WHERE id_ato_documento = ?";
         return jdbcTemplate.update(sql,
-                corregedoria.getNumero(),
-                corregedoria.getRua(),
-                corregedoria.getBairro(),
-                corregedoria.getCidade(),
-                corregedoria.getCnpj());
+                a.getTipoAtoDocumento(),
+                a.getDataCriacaoAto(),
+                a.getConteudoResumidoOuReferenciaArquivo(),
+                a.getFkProcessoInvestigativoIdProcesso(),
+                a.getFkFuncionarioMatriculaAutor(),
+                a.getFkPessoaIdAlvoAto(),
+                a.getIdAtoDocumento());
     }
 
-    // DELETE
-    public int deleteByCnpj(String cnpj) {
-        String sql = "DELETE FROM CorregedoriaModel WHERE cnpj = ?";
-        return jdbcTemplate.update(sql, cnpj);
+    public int deleteById(String id) {
+        String sql = "DELETE FROM AtoProcessualDocumento WHERE id_ato_documento = ?";
+        return jdbcTemplate.update(sql, id);
     }
 }
