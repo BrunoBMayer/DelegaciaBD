@@ -1,43 +1,37 @@
 package com.api.ProjetoBD.Services;
 
-import com.api.ProjetoBD.models.PessoaModel;
+import com.api.ProjetoBD.models.FuncionarioModel;
 import com.api.ProjetoBD.Repositories.FuncionarioRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class FuncionarioService {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final FuncionarioRepository repository;
 
-    public FuncionarioService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public FuncionarioService(FuncionarioRepository repository) {
+        this.repository = repository;
     }
 
-    // CREATE
-    public int save(PessoaModel inv) {
-        String sql = "INSERT INTO Investigativo (matricula) VALUES (?)";
-        return jdbcTemplate.update(sql, inv.getMatricula());
+    public List<FuncionarioModel> listarTodos() {
+        return repository.listarTodos();
     }
 
-    // READ ALL
-    public List<PessoaModel> findAll() {
-        String sql = "SELECT * FROM Investigativo";
-        return jdbcTemplate.query(sql, new FuncionarioRepository());
+    public void salvar(FuncionarioModel funcionario) {
+        repository.salvar(funcionario);
     }
 
-    // READ ONE
-    public PessoaModel findByMatricula(String matricula) {
-        String sql = "SELECT * FROM Investigativo WHERE matricula = ?";
-        return jdbcTemplate.queryForObject(sql, new FuncionarioRepository(), matricula);
+    public FuncionarioModel buscarPorMatricula(String matricula) {
+        return repository.buscarPorMatricula(matricula);
     }
 
-    // DELETE
-    public int deleteByMatricula(String matricula) {
-        String sql = "DELETE FROM Investigativo WHERE matricula = ?";
-        return jdbcTemplate.update(sql, matricula);
+    public void deletar(String matricula) {
+        repository.deletar(matricula);
+    }
+
+    public void atualizar(FuncionarioModel funcionario) {
+        repository.atualizar(funcionario);
     }
 }
-
