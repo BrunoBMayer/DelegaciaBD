@@ -1,13 +1,14 @@
+//OK
 package com.api.ProjetoBD.Services;
 
-import com.api.ProjetoBD.models.FuncionarioModel;
+import com.api.ProjetoBD.models.EnvolvimentoProcessoModel;
 import com.api.ProjetoBD.Repositories.EnvolvimentoProcessoRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class EnvolvimentoProcessoService {
 
     private final JdbcTemplate jdbcTemplate;
@@ -16,37 +17,36 @@ public class EnvolvimentoProcessoService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // CREATE
-    public int save(FuncionarioModel funcionario) {
-        String sql = "INSERT INTO Funcionario (matricula, nome) VALUES (?, ?)";
+    public int save(EnvolvimentoProcessoModel e) {
+        String sql = "INSERT INTO EnvolvimentoProcesso (id_envolvimento, papel_no_processo, fk_ProcessoInvestigativo_id_processo, fk_Pessoa_id_envolvido) VALUES (?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
-                funcionario.getMatricula(),
-                funcionario.getNome());
+                e.getIdEnvolvimento(),
+                e.getPapelNoProcesso(),
+                e.getFkProcessoInvestigativoIdProcesso(),
+                e.getFkPessoaIdEnvolvido());
     }
 
-    // READ ALL
-    public List<FuncionarioModel> findAll() {
-        String sql = "SELECT * FROM Funcionario";
+    public List<EnvolvimentoProcessoModel> findAll() {
+        String sql = "SELECT * FROM EnvolvimentoProcesso";
         return jdbcTemplate.query(sql, new EnvolvimentoProcessoRepository());
     }
 
-    // READ ONE
-    public FuncionarioModel findByMatricula(String matricula) {
-        String sql = "SELECT * FROM Funcionario WHERE matricula = ?";
-        return jdbcTemplate.queryForObject(sql, new EnvolvimentoProcessoRepository(), matricula);
+    public EnvolvimentoProcessoModel findById(String id) {
+        String sql = "SELECT * FROM EnvolvimentoProcesso WHERE id_envolvimento = ?";
+        return jdbcTemplate.queryForObject(sql, new EnvolvimentoProcessoRepository(), id);
     }
 
-    // UPDATE
-    public int update(FuncionarioModel funcionario) {
-        String sql = "UPDATE Funcionario SET nome = ? WHERE matricula = ?";
+    public int update(EnvolvimentoProcessoModel e) {
+        String sql = "UPDATE EnvolvimentoProcesso SET papel_no_processo = ?, fk_ProcessoInvestigativo_id_processo = ?, fk_Pessoa_id_envolvido = ? WHERE id_envolvimento = ?";
         return jdbcTemplate.update(sql,
-                funcionario.getNome(),
-                funcionario.getMatricula());
+                e.getPapelNoProcesso(),
+                e.getFkProcessoInvestigativoIdProcesso(),
+                e.getFkPessoaIdEnvolvido(),
+                e.getIdEnvolvimento());
     }
 
-    // DELETE
-    public int deleteByMatricula(String matricula) {
-        String sql = "DELETE FROM Funcionario WHERE matricula = ?";
-        return jdbcTemplate.update(sql, matricula);
+    public int deleteById(String id) {
+        String sql = "DELETE FROM EnvolvimentoProcesso WHERE id_envolvimento = ?";
+        return jdbcTemplate.update(sql, id);
     }
 }
