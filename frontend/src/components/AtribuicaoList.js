@@ -9,7 +9,7 @@ export default function AtribuicaoList({ atribuicoes, onEdit, onDelete }) {
   return (
     <div>
       {atribuicoes.map((a) => (
-        <AtribuicaoItem key={a.id_atribuicao} atribuicao={a} onEdit={onEdit} onDelete={onDelete} />
+        <AtribuicaoItem key={a.idAtribuicao} atribuicao={a} onEdit={onEdit} onDelete={onDelete} />
       ))}
     </div>
   );

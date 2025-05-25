@@ -50,7 +50,7 @@ export default function FuncionarioForm({ onSubmit, initialData, editing }) {
             </TextField>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth name="fkCorregedoriaCNPJ" label="CNPJ Corregedoria" value={formData.fkCorregedoria_CNPJ} onChange={handleChange} required />
+            <TextField fullWidth name="fkCorregedoriaCNPJ" label="CNPJ Corregedoria" value={formData.fkCorregedoriaCNPJ} onChange={handleChange} required />
           </Grid>
             <Grid item xs={12}>
               <Button variant="contained" color="primary" type="submit" fullWidth>

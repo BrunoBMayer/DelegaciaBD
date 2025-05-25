@@ -15,13 +15,13 @@ export default function HomePage() {
         if (usuario.tipo === "funcionario") {
           const res = await axios.get("http://localhost:8080/processos");
           const relacionados = res.data.filter(p =>
-            p.fk_Funcionario_matricula_responsavel_principal === usuario.id
+            p.fkFuncionarioMatriculaResponsavelPrincipal === usuario.id
           );
           setDados(relacionados);
         } else if (usuario.tipo === "pessoa") {
           const res = await axios.get("http://localhost:8080/denuncias");
           const relacionados = res.data.filter(d =>
-            d.fk_Pessoa_id_pessoa === usuario.id
+            d.fkPessoaIdPessoa === usuario.id
           );
           setDados(relacionados);
         }
@@ -52,10 +52,10 @@ export default function HomePage() {
           <Typography variant="h6" gutterBottom>Seus Processos Responsáveis</Typography>
           <List>
             {dados.map((p) => (
-              <ListItem key={p.id_processo}>
+              <ListItem key={p.idProcesso}>
                 <ListItemText
-                  primary={`Processo ${p.id_processo}`}
-                  secondary={`Status: ${p.status_processo}`}
+                  primary={`Processo ${p.idProcesso}`}
+                  secondary={`Status: ${p.statusProcesso}`}
                 />
               </ListItem>
             ))}
@@ -69,10 +69,10 @@ export default function HomePage() {
           <Typography variant="h6" gutterBottom>Suas Denúncias</Typography>
           <List>
             {dados.map((d) => (
-              <ListItem key={d.id_denuncia}>
+              <ListItem key={d.idDenuncia}>
                 <ListItemText
-                  primary={`Denúncia ${d.id_denuncia}`}
-                  secondary={`Status: ${d.status_denuncia}`}
+                  primary={`Denúncia ${d.idDenuncia}`}
+                  secondary={`Status: ${d.statusDenuncia}`}
                 />
               </ListItem>
             ))}

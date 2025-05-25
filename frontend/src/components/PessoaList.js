@@ -9,7 +9,7 @@ export default function PessoaList({ pessoas, onEdit, onDelete }) {
   return (
     <div>
       {pessoas.map((p) => (
-        <PessoaItem key={p.id_pessoa} pessoa={p} onEdit={onEdit} onDelete={onDelete} />
+        <PessoaItem key={p.idPessoa} pessoa={p} onEdit={onEdit} onDelete={onDelete} />
       ))}
     </div>
   );

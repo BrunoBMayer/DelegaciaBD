@@ -9,7 +9,7 @@ export default function AtoList({ atos, onEdit, onDelete }) {
   return (
     <div>
       {atos.map((a) => (
-        <AtoItem key={a.id_ato_documento} ato={a} onEdit={onEdit} onDelete={onDelete} />
+        <AtoItem key={a.idAtoDocumento} ato={a} onEdit={onEdit} onDelete={onDelete} />
       ))}
     </div>
   );

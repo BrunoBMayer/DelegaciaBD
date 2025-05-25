@@ -27,17 +27,17 @@ export default function DashboardPage() {
       let lista = res.data;
 
       if (statusDenuncia !== "Todos") {
-        lista = lista.filter(d => d.status_denuncia === statusDenuncia);
+        lista = lista.filter(d => d.statusDenuncia === statusDenuncia);
       }
 
       if (anonimo !== "Todos") {
         const flag = anonimo === "Sim";
-        lista = lista.filter(d => d.denunciante_anonimo === flag);
+        lista = lista.filter(d => d.denuncianteAnonimo === flag);
       }
 
       const contagem = {};
       lista.forEach(d => {
-        contagem[d.status_denuncia] = (contagem[d.status_denuncia] || 0) + 1;
+        contagem[d.statusDenuncia] = (contagem[d.statusDenuncia] || 0) + 1;
       });
 
       const formatado = Object.entries(contagem).map(([status, value]) => ({
@@ -58,12 +58,12 @@ export default function DashboardPage() {
       let lista = res.data;
 
       if (statusProcesso !== "Todos") {
-        lista = lista.filter(p => p.status_processo === statusProcesso);
+        lista = lista.filter(p => p.statusProcesso === statusProcesso);
       }
 
       const contagem = {};
       lista.forEach(p => {
-        contagem[p.tipo_processo] = (contagem[p.tipo_processo] || 0) + 1;
+        contagem[p.tipoProcesso] = (contagem[p.tipoProcesso] || 0) + 1;
       });
 
       const formatado = Object.entries(contagem).map(([tipo, total]) => ({

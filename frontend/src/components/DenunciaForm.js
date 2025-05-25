@@ -9,15 +9,15 @@ const statusOptions = [
 
 export default function DenunciaForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
-    id_denuncia: "",
-    data_ocorrencia: "",
-    data_registro_sistema: "",
-    descricao_fato: "",
-    status_denuncia: "Recebida",
-    denunciante_anonimo: false,
-    fk_Pessoa_id_pessoa: "",
-    fk_Funcionario_matricula_registrou: "",
-    fk_Funcionario_matricula_avaliador: ""
+    idDenuncia: "",
+    dataOcorrencia: "",
+    dataRegistroSistema: "",
+    descricaoFato: "",
+    statusDenuncia: "Recebida",
+    denuncianteAnonimo: false,
+    fkPessoaIdPessoa: "",
+    fkFuncionarioMatriculaRegistrou: "",
+    fkFuncionarioMatriculaAvaliador: ""
   });
 
   useEffect(() => {
@@ -37,15 +37,15 @@ export default function DenunciaForm({ onSubmit, initialData, editing }) {
     onSubmit(formData);
     if (!editing) {
       setFormData({
-        id_denuncia: "",
-        data_ocorrencia: "",
-        data_registro_sistema: "",
-        descricao_fato: "",
-        status_denuncia: "Recebida",
-        denunciante_anonimo: false,
-        fk_Pessoa_id_pessoa: "",
-        fk_Funcionario_matricula_registrou: "",
-        fk_Funcionario_matricula_avaliador: ""
+        idDenuncia: "",
+        dataOcorrencia: "",
+        dataRegistroSistema: "",
+        descricaoFato: "",
+        statusDenuncia: "Recebida",
+        denuncianteAnonimo: false,
+        fkPessoaIdPessoa: "",
+        fkFuncionarioMatriculaRegistrou: "",
+        fkFuncionarioMatriculaAvaliador: ""
       });
     }
   };
@@ -55,19 +55,19 @@ export default function DenunciaForm({ onSubmit, initialData, editing }) {
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField fullWidth label="ID" name="id_denuncia" value={formData.id_denuncia} onChange={handleChange} required disabled={editing} />
+            <TextField fullWidth label="ID" name="idDenuncia" value={formData.idDenuncia} onChange={handleChange} required disabled={editing} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField type="date" fullWidth label="Data Ocorrência" name="data_ocorrencia" value={formData.data_ocorrencia} onChange={handleChange} InputLabelProps={{ shrink: true }} />
+            <TextField type="date" fullWidth label="Data Ocorrência" name="dataOcorrencia" value={formData.dataOcorrencia} onChange={handleChange} InputLabelProps={{ shrink: true }} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField type="date" fullWidth label="Data Registro" name="data_registro_sistema" value={formData.data_registro_sistema} onChange={handleChange} InputLabelProps={{ shrink: true }} />
+            <TextField type="date" fullWidth label="Data Registro" name="dataRegistroSistema" value={formData.dataRegistroSistema} onChange={handleChange} InputLabelProps={{ shrink: true }} />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth multiline label="Descrição do Fato" name="descricao_fato" value={formData.descricao_fato} onChange={handleChange} />
+            <TextField fullWidth multiline label="Descrição do Fato" name="descricaoFato" value={formData.descricaoFato} onChange={handleChange} />
           </Grid>
           <Grid item xs={12}>
-            <TextField select fullWidth label="Status" name="status_denuncia" value={formData.status_denuncia} onChange={handleChange}>
+            <TextField select fullWidth label="Status" name="statusDenuncia" value={formData.statusDenuncia} onChange={handleChange}>
               {statusOptions.map((status) => (
                 <MenuItem key={status} value={status}>{status}</MenuItem>
               ))}
@@ -75,18 +75,18 @@ export default function DenunciaForm({ onSubmit, initialData, editing }) {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox checked={formData.denunciante_anonimo} onChange={handleChange} name="denunciante_anonimo" />}
+              control={<Checkbox checked={formData.denuncianteAnonimo} onChange={handleChange} name="denuncianteAnonimo" />}
               label="Denunciante anônimo"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="ID da Pessoa (denunciante)" name="fk_Pessoa_id_pessoa" value={formData.fk_Pessoa_id_pessoa} onChange={handleChange} />
+            <TextField fullWidth label="ID da Pessoa (denunciante)" name="fkPessoaIdPessoa" value={formData.fkPessoaIdPessoa} onChange={handleChange} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="Matrícula do Funcionário (registrou)" name="fk_Funcionario_matricula_registrou" value={formData.fk_Funcionario_matricula_registrou} onChange={handleChange} />
+            <TextField fullWidth label="Matrícula do Funcionário (registrou)" name="fkFuncionarioMatriculaRegistrou" value={formData.fkFuncionarioMatriculaRegistrou} onChange={handleChange} />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label="Matrícula do Funcionário (avaliador)" name="fk_Funcionario_matricula_avaliador" value={formData.fk_Funcionario_matricula_avaliador} onChange={handleChange} />
+            <TextField fullWidth label="Matrícula do Funcionário (avaliador)" name="fkFuncionarioMatriculaAvaliador" value={formData.fkFuncionarioMatriculaAvaliador} onChange={handleChange} />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" type="submit" fullWidth>{editing ? "Salvar alterações" : "Cadastrar"}</Button>

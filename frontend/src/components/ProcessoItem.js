@@ -8,14 +8,14 @@ export default function ProcessoItem({ processo, onEdit, onDelete }) {
       <CardContent>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <div>
-            <Typography variant="h6">{processo.tipo_processo} - {processo.id_processo}</Typography>
+            <Typography variant="h6">{processo.tipoProcesso} - {processo.idProcesso}</Typography>
             <Typography color="text.secondary">
-              Status: {processo.status_processo} | Responsável: {processo.fk_Funcionario_matricula_responsavel_principal}
+              Status: {processo.statusProcesso} | Responsável: {processo.fkFuncionarioMatriculaResponsavelPrincipal}
             </Typography>
           </div>
           <div>
             <IconButton onClick={() => onEdit(processo)}><EditIcon /></IconButton>
-            <IconButton onClick={() => onDelete(processo.id_processo)}><DeleteIcon /></IconButton>
+            <IconButton onClick={() => onDelete(processo.idProcesso)}><DeleteIcon /></IconButton>
           </div>
         </Stack>
       </CardContent>

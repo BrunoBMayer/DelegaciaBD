@@ -23,7 +23,7 @@ export default function ProcessosPage() {
       return;
     }
     if (procEdit) {
-      updateProcesso(procEdit.id_processo, dados).then(() => {
+      updateProcesso(procEdit.idProcesso, dados).then(() => {
         setProcEdit(null);
         fetchProcessos();
       });
@@ -39,9 +39,9 @@ export default function ProcessosPage() {
   };
 
   const processosFiltrados = processos.filter((p) =>
-    p.tipo_processo?.toLowerCase().includes(busca.toLowerCase()) ||
-    p.status_processo?.toLowerCase().includes(busca.toLowerCase()) ||
-    p.descricao_resumida_objeto?.toLowerCase().includes(busca.toLowerCase())
+    p.tipoProcesso?.toLowerCase().includes(busca.toLowerCase()) ||
+    p.statusProcesso?.toLowerCase().includes(busca.toLowerCase()) ||
+    p.descricaoResumidaObjeto?.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (

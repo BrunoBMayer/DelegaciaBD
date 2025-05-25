@@ -10,12 +10,12 @@ export default function PessoaItem({ pessoa, onEdit, onDelete }) {
           <div>
             <Typography variant="h6">{pessoa.nome}</Typography>
             <Typography color="text.secondary">
-              CPF: {pessoa.CPF} | ID: {pessoa.id_pessoa}
+              CPF: {pessoa.CPF} | ID: {pessoa.idPessoa}
             </Typography>
           </div>
           <div>
             <IconButton onClick={() => onEdit(pessoa)}><EditIcon /></IconButton>
-            <IconButton onClick={() => onDelete(pessoa.id_pessoa)}><DeleteIcon /></IconButton>
+            <IconButton onClick={() => onDelete(pessoa.idPessoa)}><DeleteIcon /></IconButton>
           </div>
         </Stack>
       </CardContent>

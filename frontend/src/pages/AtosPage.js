@@ -25,7 +25,7 @@ export default function AtosPage() {
       return;
     }
     if (editando) {
-      updateAto(editando.id_ato_documento, dados).then(() => {
+      updateAto(editando.idAtoDocumento, dados).then(() => {
         setEditando(null);
         fetch();
       });
@@ -41,8 +41,8 @@ export default function AtosPage() {
   };
 
   const atosFiltrados = atos.filter((a) =>
-    a.tipo_ato_documento?.toLowerCase().includes(busca.toLowerCase()) ||
-    a.conteudo_resumido_ou_referencia_arquivo?.toLowerCase().includes(busca.toLowerCase())
+    a.tipoAtoDocumento?.toLowerCase().includes(busca.toLowerCase()) ||
+    a.conteudoResumidOuReferenciaArquivo?.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (

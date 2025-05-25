@@ -8,14 +8,14 @@ export default function AtoItem({ ato, onEdit, onDelete }) {
       <CardContent>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <div>
-            <Typography variant="h6">{ato.tipo_ato_documento}</Typography>
+            <Typography variant="h6">{ato.tipoAtoDocumento}</Typography>
             <Typography color="text.secondary">
-              Autor: {ato.fk_Funcionario_matricula_autor} | Processo: {ato.fk_ProcessoInvestigativo_id_processo}
+              Autor: {ato.fkFuncionarioMatriculaAutor} | Processo: {ato.fkProcessoInvestigativoIdProcesso}
             </Typography>
           </div>
           <div>
             <IconButton onClick={() => onEdit(ato)}><EditIcon /></IconButton>
-            <IconButton onClick={() => onDelete(ato.id_ato_documento)}><DeleteIcon /></IconButton>
+            <IconButton onClick={() => onDelete(ato.idAtoDocumento)}><DeleteIcon /></IconButton>
           </div>
         </Stack>
       </CardContent>

@@ -8,14 +8,14 @@ export default function DenunciaItem({ denuncia, onEdit, onDelete }) {
       <CardContent>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <div>
-            <Typography variant="h6">{denuncia.descricao_fato?.slice(0, 50)}...</Typography>
+            <Typography variant="h6">{denuncia.descricaoFato?.slice(0, 50)}...</Typography>
             <Typography color="text.secondary">
-              Status: {denuncia.status_denuncia} | ID: {denuncia.id_denuncia}
+              Status: {denuncia.statusDenuncia} | ID: {denuncia.idDenuncia}
             </Typography>
           </div>
           <div>
             <IconButton onClick={() => onEdit(denuncia)}><EditIcon /></IconButton>
-            <IconButton onClick={() => onDelete(denuncia.id_denuncia)}><DeleteIcon /></IconButton>
+            <IconButton onClick={() => onDelete(denuncia.idDenuncia)}><DeleteIcon /></IconButton>
           </div>
         </Stack>
       </CardContent>

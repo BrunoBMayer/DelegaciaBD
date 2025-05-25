@@ -11,13 +11,13 @@ const tipos = [
 
 export default function AtoForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
-    id_ato_documento: "",
-    tipo_ato_documento: "Outro Documento",
-    data_criacao_ato: "",
-    conteudo_resumido_ou_referencia_arquivo: "",
-    fk_ProcessoInvestigativo_id_processo: "",
-    fk_Funcionario_matricula_autor: "",
-    fk_Pessoa_id_alvo_ato: ""
+    idAtoDocumento: "",
+    tipoAtoDocumento: "Outro Documento",
+    dataCriacaoAto: "",
+    conteudoResumidoOuReferenciaArquivo: "",
+    fkProcessoInvestigativoIdProcesso: "",
+    fkFuncionarioMatriculaAutor: "",
+    fkPessoaIdAlvoAto: ""
   });
 
   useEffect(() => {
@@ -34,13 +34,13 @@ export default function AtoForm({ onSubmit, initialData, editing }) {
     onSubmit(formData);
     if (!editing) {
       setFormData({
-        id_ato_documento: "",
-        tipo_ato_documento: "Outro Documento",
-        data_criacao_ato: "",
-        conteudo_resumido_ou_referencia_arquivo: "",
-        fk_ProcessoInvestigativo_id_processo: "",
-        fk_Funcionario_matricula_autor: "",
-        fk_Pessoa_id_alvo_ato: ""
+        idAtoDocumento: "",
+        tipoAtoDocumento: "Outro Documento",
+        dataCriacaoAto: "",
+        conteudoResumidoOuReferenciaArquivo: "",
+        fkProcessoInvestigativoIdProcesso: "",
+        fkFuncionarioMatriculaAutor: "",
+        fkPessoaIdAlvoAto: ""
       });
     }
   };
@@ -50,27 +50,27 @@ export default function AtoForm({ onSubmit, initialData, editing }) {
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField fullWidth label="ID" name="id_ato_documento" value={formData.id_ato_documento} onChange={handleChange} required disabled={editing} />
+            <TextField fullWidth label="ID" name="idAtoDocumento" value={formData.idAtoDocumento} onChange={handleChange} required disabled={editing} />
           </Grid>
           <Grid item xs={12}>
-            <TextField select fullWidth label="Tipo do Ato" name="tipo_ato_documento" value={formData.tipo_ato_documento} onChange={handleChange}>
+            <TextField select fullWidth label="Tipo do Ato" name="tipoAtoDocumento" value={formData.tipoAtoDocumento} onChange={handleChange}>
               {tipos.map((tipo) => <MenuItem key={tipo} value={tipo}>{tipo}</MenuItem>)}
             </TextField>
           </Grid>
           <Grid item xs={6}>
-            <TextField type="date" fullWidth label="Data de Criação" name="data_criacao_ato" value={formData.data_criacao_ato} onChange={handleChange} InputLabelProps={{ shrink: true }} />
+            <TextField type="date" fullWidth label="Data de Criação" name="dataCriacaoAto" value={formData.dataCriacaoAto} onChange={handleChange} InputLabelProps={{ shrink: true }} />
           </Grid>
           <Grid item xs={6}>
-            <TextField fullWidth label="Referência/Conteúdo" name="conteudo_resumido_ou_referencia_arquivo" value={formData.conteudo_resumido_ou_referencia_arquivo} onChange={handleChange} />
+            <TextField fullWidth label="Referência/Conteúdo" name="conteudoResumidoOuReferenciaArquivo" value={formData.conteudoResumidoOuReferenciaArquivo} onChange={handleChange} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="ID do Processo" name="fk_ProcessoInvestigativo_id_processo" value={formData.fk_ProcessoInvestigativo_id_processo} onChange={handleChange} />
+            <TextField fullWidth label="ID do Processo" name="fkProcessoInvestigativoIdProcesso" value={formData.fkProcessoInvestigativoIdProcesso} onChange={handleChange} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="Matrícula do Autor" name="fk_Funcionario_matricula_autor" value={formData.fk_Funcionario_matricula_autor} onChange={handleChange} />
+            <TextField fullWidth label="Matrícula do Autor" name="fkFuncionarioMatriculaAutor" value={formData.fkFuncionarioMatriculaAutor} onChange={handleChange} />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label="ID da Pessoa Alvo" name="fk_Pessoa_id_alvo_ato" value={formData.fk_Pessoa_id_alvo_ato} onChange={handleChange} />
+            <TextField fullWidth label="ID da Pessoa Alvo" name="fkPessoaIdAlvoAto" value={formData.fkPessoaIdAlvoAto} onChange={handleChange} />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" type="submit" fullWidth>{editing ? "Salvar alterações" : "Cadastrar"}</Button>

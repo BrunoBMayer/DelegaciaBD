@@ -23,7 +23,7 @@ export default function DenunciasPage() {
       return;
     }
     if (denunciaEdit) {
-      updateDenuncia(denunciaEdit.id_denuncia, dados).then(() => {
+      updateDenuncia(denunciaEdit.idDenuncia, dados).then(() => {
         setDenunciaEdit(null);
         fetchDenuncias();
       });
@@ -39,8 +39,8 @@ export default function DenunciasPage() {
   };
 
   const denunciasFiltradas = denuncias.filter((d) =>
-    d.descricao_fato?.toLowerCase().includes(busca.toLowerCase()) ||
-    d.status_denuncia?.toLowerCase().includes(busca.toLowerCase())
+    d.descricaoFato?.toLowerCase().includes(busca.toLowerCase()) ||
+    d.statusDenuncia?.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (

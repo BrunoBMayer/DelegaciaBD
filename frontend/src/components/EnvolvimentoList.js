@@ -9,7 +9,7 @@ export default function EnvolvimentoList({ envolvimentos, onEdit, onDelete }) {
   return (
     <div>
       {envolvimentos.map((e) => (
-        <EnvolvimentoItem key={e.id_envolvimento} envolvimento={e} onEdit={onEdit} onDelete={onDelete} />
+        <EnvolvimentoItem key={e.idEnvolvimento} envolvimento={e} onEdit={onEdit} onDelete={onDelete} />
       ))}
     </div>
   );

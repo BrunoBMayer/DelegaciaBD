@@ -23,7 +23,7 @@ export default function PessoasPage() {
       return;
     }
     if (pessoaEdit) {
-      updatePessoa(pessoaEdit.id_pessoa, dados).then(() => {
+      updatePessoa(pessoaEdit.idPessoa, dados).then(() => {
         setPessoaEdit(null);
         fetchPessoas();
       });

@@ -5,10 +5,10 @@ const papeis = ["Investigado", "Indiciado", "Testemunha", "Vítima", "Detido"];
 
 export default function EnvolvimentoForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
-    id_envolvimento: "",
-    papel_no_processo: "Testemunha",
-    fk_ProcessoInvestigativo_id_processo: "",
-    fk_Pessoa_id_envolvido: ""
+    idEnvolvimento: "",
+    papelNoProcesso: "Testemunha",
+    fkProcessoInvestigativoIdProcesso: "",
+    fkPessoaIdEnvolvido: ""
   });
 
   useEffect(() => {
@@ -25,10 +25,10 @@ export default function EnvolvimentoForm({ onSubmit, initialData, editing }) {
     onSubmit(formData);
     if (!editing) {
       setFormData({
-        id_envolvimento: "",
-        papel_no_processo: "Testemunha",
-        fk_ProcessoInvestigativo_id_processo: "",
-        fk_Pessoa_id_envolvido: ""
+        idEnvolvimento: "",
+        papelNoProcesso: "Testemunha",
+        fkProcessoInvestigativoIdProcesso: "",
+        fkPessoaIdEnvolvido: ""
       });
     }
   };
@@ -38,18 +38,18 @@ export default function EnvolvimentoForm({ onSubmit, initialData, editing }) {
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField fullWidth label="ID" name="id_envolvimento" value={formData.id_envolvimento} onChange={handleChange} required disabled={editing} />
+            <TextField fullWidth label="ID" name="idEnvolvimento" value={formData.idEnvolvimento} onChange={handleChange} required disabled={editing} />
           </Grid>
           <Grid item xs={12}>
-            <TextField select fullWidth label="Papel no Processo" name="papel_no_processo" value={formData.papel_no_processo} onChange={handleChange}>
+            <TextField select fullWidth label="Papel no Processo" name="papelNoProcesso" value={formData.papelNoProcesso} onChange={handleChange}>
               {papeis.map((p) => <MenuItem key={p} value={p}>{p}</MenuItem>)}
             </TextField>
           </Grid>
           <Grid item xs={6}>
-            <TextField fullWidth label="ID do Processo" name="fk_ProcessoInvestigativo_id_processo" value={formData.fk_ProcessoInvestigativo_id_processo} onChange={handleChange} />
+            <TextField fullWidth label="ID do Processo" name="fkProcessoInvestigativoIdProcesso" value={formData.fkProcessoInvestigativoIdProcesso} onChange={handleChange} />
           </Grid>
           <Grid item xs={6}>
-            <TextField fullWidth label="ID da Pessoa" name="fk_Pessoa_id_envolvido" value={formData.fk_Pessoa_id_envolvido} onChange={handleChange} />
+            <TextField fullWidth label="ID da Pessoa" name="fkPessoaIdEnvolvido" value={formData.fkPessoaIdEnvolvido} onChange={handleChange} />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" type="submit" fullWidth>{editing ? "Salvar alterações" : "Cadastrar"}</Button>

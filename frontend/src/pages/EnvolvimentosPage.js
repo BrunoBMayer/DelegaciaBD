@@ -25,7 +25,7 @@ export default function EnvolvimentosPage() {
       return;
     }
     if (editando) {
-      updateEnvolvimento(editando.id_envolvimento, dados).then(() => {
+      updateEnvolvimento(editando.idEnvolvimento, dados).then(() => {
         setEditando(null);
         fetch();
       });
@@ -41,8 +41,8 @@ export default function EnvolvimentosPage() {
   };
 
   const envolvimentosFiltrados = envolvimentos.filter((e) =>
-    e.papel_no_processo?.toLowerCase().includes(busca.toLowerCase()) ||
-    e.fk_Pessoa_id_envolvido?.toLowerCase().includes(busca.toLowerCase())
+    e.papelNoProcesso?.toLowerCase().includes(busca.toLowerCase()) ||
+    e.fkPessoaIdEnvolvido?.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (

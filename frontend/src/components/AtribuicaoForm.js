@@ -7,13 +7,13 @@ const statusOptions = ["Pendente", "Em Andamento", "Concluída"];
 
 export default function AtribuicaoForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
-    id_atribuicao: "",
-    descricao_tarefa: "",
-    data_atribuicao: "",
-    prazo_conclusao: "",
-    status_tarefa: "Pendente",
-    fk_ProcessoInvestigativo_id_processo: "",
-    fk_Funcionario_matricula_designado: ""
+    idAtribuicao: "",
+    descricaoTarefa: "",
+    dataAtribuicao: "",
+    prazoConclusao: "",
+    statusTarefa: "Pendente",
+    fkProcessoInvestigativoIdProcesso: "",
+    fkFuncionarioMatriculaDesignado: ""
   });
 
   useEffect(() => {
@@ -30,13 +30,13 @@ export default function AtribuicaoForm({ onSubmit, initialData, editing }) {
     onSubmit(formData);
     if (!editing) {
       setFormData({
-        id_atribuicao: "",
-        descricao_tarefa: "",
-        data_atribuicao: "",
-        prazo_conclusao: "",
-        status_tarefa: "Pendente",
-        fk_ProcessoInvestigativo_id_processo: "",
-        fk_Funcionario_matricula_designado: ""
+        idAtribuicao: "",
+        descricaoTarefa: "",
+        dataAtribuicao: "",
+        prazoConclusao: "",
+        statusTarefa: "Pendente",
+        fkProcessoInvestigativoIdProcesso: "",
+        fkFuncionarioMatriculaDesignado: ""
       });
     }
   };
@@ -46,27 +46,27 @@ export default function AtribuicaoForm({ onSubmit, initialData, editing }) {
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField fullWidth label="ID" name="id_atribuicao" value={formData.id_atribuicao} onChange={handleChange} required disabled={editing} />
+            <TextField fullWidth label="ID" name="idAtribuicao" value={formData.idAtribuicao} onChange={handleChange} required disabled={editing} />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label="Descrição da Tarefa" name="descricao_tarefa" value={formData.descricao_tarefa} onChange={handleChange} multiline />
+            <TextField fullWidth label="Descrição da Tarefa" name="descricaoTarefa" value={formData.descricaoTarefa} onChange={handleChange} multiline />
           </Grid>
           <Grid item xs={6}>
-            <TextField type="date" fullWidth label="Data de Atribuição" name="data_atribuicao" value={formData.data_atribuicao} onChange={handleChange} InputLabelProps={{ shrink: true }} />
+            <TextField type="date" fullWidth label="Data de Atribuição" name="dataAtribuicao" value={formData.dataAtribuicao} onChange={handleChange} InputLabelProps={{ shrink: true }} />
           </Grid>
           <Grid item xs={6}>
-            <TextField type="date" fullWidth label="Prazo Conclusão" name="prazo_conclusao" value={formData.prazo_conclusao} onChange={handleChange} InputLabelProps={{ shrink: true }} />
+            <TextField type="date" fullWidth label="Prazo Conclusão" name="prazoConclusao" value={formData.prazoConclusao} onChange={handleChange} InputLabelProps={{ shrink: true }} />
           </Grid>
           <Grid item xs={12}>
-            <TextField select fullWidth label="Status" name="status_tarefa" value={formData.status_tarefa} onChange={handleChange}>
+            <TextField select fullWidth label="Status" name="statusTarefa" value={formData.statusTarefa} onChange={handleChange}>
               {statusOptions.map((s) => <MenuItem key={s} value={s}>{s}</MenuItem>)}
             </TextField>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="ID do Processo" name="fk_ProcessoInvestigativo_id_processo" value={formData.fk_ProcessoInvestigativo_id_processo} onChange={handleChange} />
+            <TextField fullWidth label="ID do Processo" name="fkProcessoInvestigativoIdProcesso" value={formData.fkProcessoInvestigativoIdProcesso} onChange={handleChange} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="Matrícula do Funcionário" name="fk_Funcionario_matricula_designado" value={formData.fk_Funcionario_matricula_designado} onChange={handleChange} />
+            <TextField fullWidth label="Matrícula do Funcionário" name="fkFuncionarioMatriculaDesignado" value={formData.fkFuncionarioMatriculaDesignado} onChange={handleChange} />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" type="submit" fullWidth>{editing ? "Salvar alterações" : "Cadastrar"}</Button>

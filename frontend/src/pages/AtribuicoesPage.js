@@ -25,7 +25,7 @@ export default function AtribuicoesPage() {
       return;
     }
     if (editando) {
-      updateAtribuicao(editando.id_atribuicao, dados).then(() => {
+      updateAtribuicao(editando.idAtribuicao, dados).then(() => {
         setEditando(null);
         fetch();
       });
@@ -41,8 +41,8 @@ export default function AtribuicoesPage() {
   };
 
   const atribuicoesFiltradas = atribuicoes.filter((a) =>
-    a.descricao_tarefa?.toLowerCase().includes(busca.toLowerCase()) ||
-    a.status_tarefa?.toLowerCase().includes(busca.toLowerCase())
+    a.descricaoTarefa?.toLowerCase().includes(busca.toLowerCase()) ||
+    a.statusTarefa?.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (

@@ -9,7 +9,7 @@ export default function DenunciaList({ denuncias, onEdit, onDelete }) {
   return (
     <div>
       {denuncias.map((d) => (
-        <DenunciaItem key={d.id_denuncia} denuncia={d} onEdit={onEdit} onDelete={onDelete} />
+        <DenunciaItem key={d.idDenuncia} denuncia={d} onEdit={onEdit} onDelete={onDelete} />
       ))}
     </div>
   );

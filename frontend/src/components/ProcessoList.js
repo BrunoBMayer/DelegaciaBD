@@ -9,7 +9,7 @@ export default function ProcessoList({ processos, onEdit, onDelete }) {
   return (
     <div>
       {processos.map((p) => (
-        <ProcessoItem key={p.id_processo} processo={p} onEdit={onEdit} onDelete={onDelete} />
+        <ProcessoItem key={p.idProcesso} processo={p} onEdit={onEdit} onDelete={onDelete} />
       ))}
     </div>
   );
