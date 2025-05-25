@@ -7,8 +7,8 @@ export default function FuncionarioForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
     nome: "",
     matricula: "",
-    tipo_funcionario: "Outro",
-    fk_Corregedoria_CNPJ: ""
+    tipoFuncionario: "Outro",
+    fkCorregedoriaCNPJ: ""
   });
 
   useEffect(() => {
@@ -26,8 +26,8 @@ export default function FuncionarioForm({ onSubmit, initialData, editing }) {
       setFormData({
         nome: "",
         matricula: "",
-        tipo_funcionario: "Outro",
-        fk_Corregedoria_CNPJ: ""
+        tipoFuncionario: "Outro",
+        fkCorregedoriaCNPJ: ""
       });
     }
   };
@@ -43,40 +43,40 @@ export default function FuncionarioForm({ onSubmit, initialData, editing }) {
             <TextField fullWidth name="matricula" label="Matrícula" value={formData.matricula} onChange={handleChange} required disabled={editing} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField select fullWidth name="tipo_funcionario" label="Tipo" value={formData.tipo_funcionario} onChange={handleChange}>
+            <TextField select fullWidth name="tipoFuncionario" label="Tipo" value={formData.tipoFuncionario} onChange={handleChange}>
               {tipos.map((tipo) => (
                 <MenuItem key={tipo} value={tipo}>{tipo}</MenuItem>
               ))}
             </TextField>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth name="fk_Corregedoria_CNPJ" label="CNPJ Corregedoria" value={formData.fk_Corregedoria_CNPJ} onChange={handleChange} required />
+            <TextField fullWidth name="fkCorregedoriaCNPJ" label="CNPJ Corregedoria" value={formData.fkCorregedoria_CNPJ} onChange={handleChange} required />
           </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" color="primary" type="submit" fullWidth>
-              {editing ? "Salvar alterações" : "Cadastrar"}
-              {editing && (
-                <Grid item xs={12}>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    color="secondary"
-                    onClick={() => {
-                      setFormData({
-                        nome: "",
-                        matricula: "",
-                        tipo_funcionario: "Outro",
-                        fk_Corregedoria_CNPJ: ""
-                      });
-                      onSubmit(null); // ou chame uma função de cancelamento, se preferir
-                    }}
-                  >
-                    Cancelar edição
-                  </Button>
-                </Grid>
-              )}
-            </Button>
-          </Grid>
+            <Grid item xs={12}>
+              <Button variant="contained" color="primary" type="submit" fullWidth>
+                {editing ? "Salvar alterações" : "Cadastrar"}
+              </Button>
+            </Grid>
+            {editing && (
+              <Grid item xs={12}>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  color="secondary"
+                  onClick={() => {
+                    setFormData({
+                      nome: "",
+                      matricula: "",
+                      tipoFuncionario: "Outro",
+                      fkCorregedoriaCNPJ: ""
+                    });
+                    onSubmit(null); // ou chame uma função de cancelamento, se preferir
+                  }}
+                >
+                  Cancelar edição
+                </Button>
+              </Grid>
+            )}
         </Grid>
       </form>
     </Paper>

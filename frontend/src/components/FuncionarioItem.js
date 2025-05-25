@@ -10,7 +10,7 @@ export default function FuncionarioItem({ funcionario, onEdit, onDelete }) {
           <div>
             <Typography variant="h6">{funcionario.nome}</Typography>
             <Typography color="text.secondary">
-              Matrícula: {funcionario.matricula} | Cargo: {funcionario.tipo_funcionario}
+              Matrícula: {funcionario.matricula} | Cargo: {funcionario.tipoFuncionario}
             </Typography>
           </div>
           <div>

@@ -16,7 +16,7 @@ export default function FuncionariosPage() {
 
   useEffect(() => {
     getFuncionarios().then(res => {
-      console.log(res.data); // ⬅️ Veja aqui se tipo_funcionario aparece
+      console.log(res.data); // ⬅️ Veja aqui se tipoFuncionario aparece
       setFuncionarios(res.data);
     });
   }, []);
