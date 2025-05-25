@@ -40,7 +40,7 @@ export default function PessoasPage() {
 
   const pessoasFiltradas = pessoas.filter((p) =>
     p.nome?.toLowerCase().includes(busca.toLowerCase()) ||
-    p.CPF?.toLowerCase().includes(busca.toLowerCase())
+    p.cpf?.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (

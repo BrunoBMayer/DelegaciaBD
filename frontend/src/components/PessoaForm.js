@@ -5,7 +5,7 @@ export default function PessoaForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
     idPessoa: "",
     nome: "",
-    CPF: "",
+    cpf: "",
     outrosDadosIdentificacao: ""
   });
 
@@ -24,7 +24,7 @@ export default function PessoaForm({ onSubmit, initialData, editing }) {
       setFormData({
         idPessoa: "",
         nome: "",
-        CPF: "",
+        cpf: "",
         outrosDadosIdentificacao: ""
       });
     }
@@ -41,7 +41,7 @@ export default function PessoaForm({ onSubmit, initialData, editing }) {
             <TextField fullWidth label="Nome" name="nome" value={formData.nome} onChange={handleChange} required />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="CPF" name="CPF" value={formData.CPF} onChange={handleChange} required />
+            <TextField fullWidth label="cpf" name="cpf" value={formData.cpf} onChange={handleChange} required />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField fullWidth label="Outros dados" name="outrosDadosIdentificacao" value={formData.outrosDadosIdentificacao} onChange={handleChange} />

@@ -10,7 +10,7 @@ export default function PessoaItem({ pessoa, onEdit, onDelete }) {
           <div>
             <Typography variant="h6">{pessoa.nome}</Typography>
             <Typography color="text.secondary">
-              CPF: {pessoa.CPF} | ID: {pessoa.idPessoa}
+              cpf: {pessoa.cpf} | ID: {pessoa.idPessoa}
             </Typography>
           </div>
           <div>
