@@ -10,7 +10,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/ato-processual-documento")
+@RequestMapping("/atos")
 public class AtoProcessualDocumentoController {
 
     private final AtoProcessualDocumentoService service;
