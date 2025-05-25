@@ -4,8 +4,8 @@ package com.api.ProjetoBD.models;
 public class FuncionarioModel {
     private String matricula;
     private String nome;
-    private String fkCorregedoriaCnpj;
-    private String tipoFuncionario;
+    private String fk_CorregedoriaCnpj;
+    private String tipo_Funcionario;
 
     public String getMatricula() {
         return matricula;
