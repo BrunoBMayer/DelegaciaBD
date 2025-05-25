@@ -12,6 +12,8 @@ import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CorregedoriasPage from "./pages/CorregedoriasPage";
+
 
 function AppBarNav() {
   const { usuario, logout } = useUser();
@@ -24,6 +26,7 @@ function AppBarNav() {
             <Button color="inherit" component={Link} to="/home">Home</Button>
             {usuario.tipo === "admin" && (
               <>
+                <Button color="inherit" component={Link} to="/corregedorias">Corregedorias</Button>
                 <Button color="inherit" component={Link} to="/funcionarios">Funcionários</Button>
                 <Button color="inherit" component={Link} to="/pessoas">Pessoas</Button>
                 <Button color="inherit" component={Link} to="/denuncias">Denúncias</Button>
@@ -79,6 +82,10 @@ function AppRoutes() {
           <Route path="/dashboard" element={
             <ProtectedRoute tipo="admin"><DashboardPage /></ProtectedRoute>
           } />
+          <Route path="/corregedorias" element={
+            <ProtectedRoute tipo="admin"><CorregedoriasPage /></ProtectedRoute>
+          } />
+
         </Routes>
       </Container>
     </>
