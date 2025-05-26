@@ -2,9 +2,30 @@ import { useEffect, useState } from "react";
 import { TextField, Button, Grid, Paper, MenuItem } from "@mui/material";
 import { getFuncionarios } from "../services/funcionarioService";
 import { getDenuncias } from "../services/denunciaService";
+import axios from "axios";
 
 const tipos = ["Sindicância", "PAD", "Inquérito Policial", "Verificação Preliminar"];
 const status = ["Em Andamento", "Concluído", "Arquivado", "Suspenso"];
+
+async function gerarIdUnico(prefixo, endpoint) {
+  let id;
+  let existe = true;
+
+  while (existe) {
+    const numero = Math.floor(1000 + Math.random() * 9000);
+    id = `${prefixo}${numero}`;
+
+    try {
+      const res = await axios.get(`http://localhost:8080/${endpoint}`);
+      existe = res.data.some(p => p.idProcesso === id);
+    } catch (e) {
+      console.error("Erro ao verificar ID único:", e);
+      break;
+    }
+  }
+
+  return id;
+}
 
 export default function ProcessoForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
@@ -23,8 +44,14 @@ export default function ProcessoForm({ onSubmit, initialData, editing }) {
   const [denuncias, setDenuncias] = useState([]);
 
   useEffect(() => {
-    if (initialData) setFormData(initialData);
-  }, [initialData]);
+    if (initialData) {
+      setFormData(initialData);
+    } else {
+      gerarIdUnico("PI", "processos").then(idGerado => {
+        setFormData(prev => ({ ...prev, idProcesso: idGerado }));
+      });
+    }
+  }, [initialData, editing]);
 
   useEffect(() => {
     getFuncionarios().then(res => setFuncionarios(res.data));
@@ -40,16 +67,18 @@ export default function ProcessoForm({ onSubmit, initialData, editing }) {
     e.preventDefault();
     onSubmit(formData);
     if (!editing) {
-      setFormData({
-        idProcesso: "",
-        numeroProtocoloInterno: "",
-        tipoProcesso: "Sindicância",
-        dataAbertura: "",
-        dataConclusao: "",
-        statusProcesso: "Em Andamento",
-        descricaoResumidaObjeto: "",
-        fkFuncionarioMatriculaResponsavelPrincipal: "",
-        fkDenunciaIdOrigem: ""
+      gerarIdUnico("PI", "processos").then(idGerado => {
+        setFormData({
+          idProcesso: idGerado,
+          numeroProtocoloInterno: "",
+          tipoProcesso: "Sindicância",
+          dataAbertura: "",
+          dataConclusao: "",
+          statusProcesso: "Em Andamento",
+          descricaoResumidaObjeto: "",
+          fkFuncionarioMatriculaResponsavelPrincipal: "",
+          fkDenunciaIdOrigem: ""
+        });
       });
     }
   };
@@ -64,9 +93,8 @@ export default function ProcessoForm({ onSubmit, initialData, editing }) {
               name="idProcesso"
               fullWidth
               required
-              disabled={editing}
+              disabled
               value={formData.idProcesso}
-              onChange={handleChange}
               sx={{ width: '100%', minWidth: 300 }}
             />
           </Grid>

@@ -3,6 +3,7 @@ import { TextField, Button, Grid, Paper, MenuItem } from "@mui/material";
 import { getFuncionarios } from "../services/funcionarioService";
 import { getPessoas } from "../services/pessoaService";
 import { getProcessos } from "../services/processoService";
+import axios from "axios";
 
 const tipos = [
   "Relatório Parcial",
@@ -14,6 +15,26 @@ const tipos = [
   "Perícia",
   "Outro Documento"
 ];
+
+async function gerarIdUnico(prefixo, endpoint, campo = "idAtoDocumento") {
+  let id;
+  let existe = true;
+
+  while (existe) {
+    const numero = Math.floor(1000 + Math.random() * 9000);
+    id = `${prefixo}${numero}`;
+
+    try {
+      const res = await axios.get(`http://localhost:8080/${endpoint}`);
+      existe = res.data.some(item => item[campo] === id);
+    } catch (e) {
+      console.error("Erro ao verificar ID único:", e);
+      break;
+    }
+  }
+
+  return id;
+}
 
 export default function AtoForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
@@ -31,8 +52,14 @@ export default function AtoForm({ onSubmit, initialData, editing }) {
   const [processos, setProcessos] = useState([]);
 
   useEffect(() => {
-    if (initialData) setFormData(initialData);
-  }, [initialData]);
+    if (initialData) {
+      setFormData(initialData);
+    } else {
+      gerarIdUnico("A", "atos", "idAtoDocumento").then(idGerado => {
+        setFormData(prev => ({ ...prev, idAtoDocumento: idGerado }));
+      });
+    }
+  }, [initialData, editing]);
 
   useEffect(() => {
     getFuncionarios().then(res => setFuncionarios(res.data));
@@ -49,14 +76,16 @@ export default function AtoForm({ onSubmit, initialData, editing }) {
     e.preventDefault();
     onSubmit(formData);
     if (!editing) {
-      setFormData({
-        idAtoDocumento: "",
-        tipoAtoDocumento: "Relatório Parcial",
-        dataCriacaoAto: "",
-        conteudoResumidoOuReferenciaArquivo: "",
-        fkProcessoInvestigativoIdProcesso: "",
-        fkFuncionarioMatriculaAutor: "",
-        fkPessoaIdAlvoAto: ""
+      gerarIdUnico("A", "atos", "idAtoDocumento").then(idGerado => {
+        setFormData({
+          idAtoDocumento: idGerado,
+          tipoAtoDocumento: "Relatório Parcial",
+          dataCriacaoAto: "",
+          conteudoResumidoOuReferenciaArquivo: "",
+          fkProcessoInvestigativoIdProcesso: "",
+          fkFuncionarioMatriculaAutor: "",
+          fkPessoaIdAlvoAto: ""
+        });
       });
     }
   };
@@ -71,7 +100,7 @@ export default function AtoForm({ onSubmit, initialData, editing }) {
               name="idAtoDocumento"
               fullWidth
               required
-              disabled={editing}
+              disabled
               value={formData.idAtoDocumento}
               onChange={handleChange}
               sx={{ width: '100%', minWidth: 300 }}

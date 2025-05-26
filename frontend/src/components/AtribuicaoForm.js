@@ -2,8 +2,29 @@ import { useEffect, useState } from "react";
 import { TextField, Button, Grid, Paper, MenuItem } from "@mui/material";
 import { getFuncionarios } from "../services/funcionarioService";
 import { getProcessos } from "../services/processoService";
+import axios from "axios";
 
 const status = ["Pendente", "Em Andamento", "Concluída"];
+
+async function gerarIdUnico(prefixo, endpoint, campo = "idAtribuicao") {
+  let id;
+  let existe = true;
+
+  while (existe) {
+    const numero = Math.floor(1000 + Math.random() * 9000);
+    id = `${prefixo}${numero}`;
+
+    try {
+      const res = await axios.get(`http://localhost:8080/${endpoint}`);
+      existe = res.data.some(item => item[campo] === id);
+    } catch (e) {
+      console.error("Erro ao verificar ID único:", e);
+      break;
+    }
+  }
+
+  return id;
+}
 
 export default function AtribuicaoForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
@@ -20,8 +41,14 @@ export default function AtribuicaoForm({ onSubmit, initialData, editing }) {
   const [processos, setProcessos] = useState([]);
 
   useEffect(() => {
-    if (initialData) setFormData(initialData);
-  }, [initialData]);
+    if (initialData) {
+      setFormData(initialData);
+    } else {
+      gerarIdUnico("AT", "atribuicoes", "idAtribuicao").then(idGerado => {
+        setFormData(prev => ({ ...prev, idAtribuicao: idGerado }));
+      });
+    }
+  }, [initialData, editing]);
 
   useEffect(() => {
     getFuncionarios().then(res => setFuncionarios(res.data));
@@ -37,14 +64,16 @@ export default function AtribuicaoForm({ onSubmit, initialData, editing }) {
     e.preventDefault();
     onSubmit(formData);
     if (!editing) {
-      setFormData({
-        idAtribuicao: "",
-        descricaoTarefa: "",
-        dataAtribuicao: "",
-        prazoConclusao: "",
-        statusTarefa: "Pendente",
-        fkProcessoInvestigativoIdProcesso: "",
-        fkFuncionarioMatriculaDesignado: ""
+      gerarIdUnico("AT", "atribuicoes", "idAtribuicao").then(idGerado => {
+        setFormData({
+          idAtribuicao: idGerado,
+          descricaoTarefa: "",
+          dataAtribuicao: "",
+          prazoConclusao: "",
+          statusTarefa: "Pendente",
+          fkProcessoInvestigativoIdProcesso: "",
+          fkFuncionarioMatriculaDesignado: ""
+        });
       });
     }
   };

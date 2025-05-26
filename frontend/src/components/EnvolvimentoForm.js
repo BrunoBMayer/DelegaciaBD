@@ -2,8 +2,29 @@ import { useEffect, useState } from "react";
 import { TextField, Button, Grid, Paper, MenuItem } from "@mui/material";
 import { getPessoas } from "../services/pessoaService";
 import { getProcessos } from "../services/processoService";
+import axios from "axios";
 
 const papeis = ["Investigado", "Indiciado", "Testemunha", "Vítima", "Detido"];
+
+async function gerarIdUnico(prefixo, endpoint, campo = "idEnvolvimento") {
+  let id;
+  let existe = true;
+
+  while (existe) {
+    const numero = Math.floor(1000 + Math.random() * 9000);
+    id = `${prefixo}${numero}`;
+
+    try {
+      const res = await axios.get(`http://localhost:8080/${endpoint}`);
+      existe = res.data.some(item => item[campo] === id);
+    } catch (e) {
+      console.error("Erro ao verificar ID único:", e);
+      break;
+    }
+  }
+
+  return id;
+}
 
 export default function EnvolvimentoForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
@@ -17,8 +38,14 @@ export default function EnvolvimentoForm({ onSubmit, initialData, editing }) {
   const [processos, setProcessos] = useState([]);
 
   useEffect(() => {
-    if (initialData) setFormData(initialData);
-  }, [initialData]);
+    if (initialData) {
+      setFormData(initialData);
+    } else {
+      gerarIdUnico("E", "envolvimentos", "idEnvolvimento").then(idGerado => {
+        setFormData(prev => ({ ...prev, idEnvolvimento: idGerado }));
+      });
+    }
+  }, [initialData, editing]);
 
   useEffect(() => {
     getPessoas().then(res => setPessoas(res.data));
@@ -34,11 +61,13 @@ export default function EnvolvimentoForm({ onSubmit, initialData, editing }) {
     e.preventDefault();
     onSubmit(formData);
     if (!editing) {
-      setFormData({
-        idEnvolvimento: "",
-        papelNoProcesso: "Investigado",
-        fkProcessoInvestigativoIdProcesso: "",
-        fkPessoaIdEnvolvido: ""
+      gerarIdUnico("E", "envolvimentos", "idEnvolvimento").then(idGerado => {
+        setFormData({
+          idEnvolvimento: idGerado,
+          papelNoProcesso: "Investigado",
+          fkProcessoInvestigativoIdProcesso: "",
+          fkPessoaIdEnvolvido: ""
+        });
       });
     }
   };
@@ -53,7 +82,7 @@ export default function EnvolvimentoForm({ onSubmit, initialData, editing }) {
               name="idEnvolvimento"
               fullWidth
               required
-              disabled={editing}
+              disabled
               value={formData.idEnvolvimento}
               onChange={handleChange}
               sx={{ width: '100%', minWidth: 300 }}
