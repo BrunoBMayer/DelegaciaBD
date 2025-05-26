@@ -11,10 +11,12 @@ export default function LoginPage() {
   const [nome, setNome] = useState("");
   const [id, setId] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(nome.trim().toLowerCase(), id.trim());
-    navigate("/home");
+    const tipo = await login(nome.trim().toLowerCase(), id.trim());
+    if (tipo) {
+      navigate("/home");
+    }
   };
 
   return (
