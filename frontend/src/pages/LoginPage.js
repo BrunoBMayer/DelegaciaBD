@@ -31,7 +31,7 @@ export default function LoginPage() {
             required
           />
           <TextField
-            label="ID (matrícula ou CPF)"
+            label="ID (ou matrícula)"
             fullWidth
             margin="normal"
             value={id}
