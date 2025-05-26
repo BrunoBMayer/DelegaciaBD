@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
-import {
-  Grid, TextField, Button, Paper, MenuItem
-} from "@mui/material";
+import { TextField, Button, Grid, Paper, MenuItem } from "@mui/material";
+import { getFuncionarios } from "../services/funcionarioService";
+import { getDenuncias } from "../services/denunciaService";
 
-const tipoOptions = [
-  "Sindicância", "PAD", "Inquérito Policial", "Verificação Preliminar"
-];
-
-const statusOptions = [
-  "Em Andamento", "Concluído", "Arquivado", "Suspenso"
-];
+const tipos = ["Sindicância", "PAD", "Inquérito Policial", "Verificação Preliminar"];
+const status = ["Em Andamento", "Concluído", "Arquivado", "Suspenso"];
 
 export default function ProcessoForm({ onSubmit, initialData, editing }) {
   const [formData, setFormData] = useState({
@@ -24,9 +19,17 @@ export default function ProcessoForm({ onSubmit, initialData, editing }) {
     fkDenunciaIdOrigem: ""
   });
 
+  const [funcionarios, setFuncionarios] = useState([]);
+  const [denuncias, setDenuncias] = useState([]);
+
   useEffect(() => {
     if (initialData) setFormData(initialData);
   }, [initialData]);
+
+  useEffect(() => {
+    getFuncionarios().then(res => setFuncionarios(res.data));
+    getDenuncias().then(res => setDenuncias(res.data));
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,48 +59,128 @@ export default function ProcessoForm({ onSubmit, initialData, editing }) {
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField fullWidth label="ID do Processo" name="idProcesso" value={formData.idProcesso} onChange={handleChange} required disabled={editing} />
+            <TextField
+              label="ID do Processo"
+              name="idProcesso"
+              fullWidth
+              required
+              disabled={editing}
+              value={formData.idProcesso}
+              onChange={handleChange}
+              sx={{ width: '100%', minWidth: 300 }}
+            />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label="Número Protocolo Interno" name="numeroProtocoloInterno" value={formData.numeroProtocoloInterno} onChange={handleChange} />
+            <TextField
+              label="Número do Protocolo Interno"
+              name="numeroProtocoloInterno"
+              fullWidth
+              value={formData.numeroProtocoloInterno}
+              onChange={handleChange}
+              sx={{ width: '100%', minWidth: 300 }}
+            />
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField select fullWidth label="Tipo de Processo" name="tipoProcesso" value={formData.tipoProcesso} onChange={handleChange}>
-              {tipoOptions.map(tipo => (
-                <MenuItem key={tipo} value={tipo}>{tipo}</MenuItem>
+          <Grid item xs={12}>
+            <TextField
+              select
+              label="Tipo de Processo"
+              name="tipoProcesso"
+              fullWidth
+              value={formData.tipoProcesso}
+              onChange={handleChange}
+              sx={{ width: '100%', minWidth: 300 }}
+            >
+              {tipos.map(op => (
+                <MenuItem key={op} value={op}>{op}</MenuItem>
               ))}
             </TextField>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField select fullWidth label="Status" name="statusProcesso" value={formData.statusProcesso} onChange={handleChange}>
-              {statusOptions.map(status => (
-                <MenuItem key={status} value={status}>{status}</MenuItem>
+            <TextField
+              label="Data de Abertura"
+              type="date"
+              name="dataAbertura"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              value={formData.dataAbertura}
+              onChange={handleChange}
+              sx={{ width: '100%', minWidth: 300 }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Data de Conclusão"
+              type="date"
+              name="dataConclusao"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              value={formData.dataConclusao}
+              onChange={handleChange}
+              sx={{ width: '100%', minWidth: 300 }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              select
+              label="Status do Processo"
+              name="statusProcesso"
+              fullWidth
+              value={formData.statusProcesso}
+              onChange={handleChange}
+              sx={{ width: '100%', minWidth: 300 }}
+            >
+              {status.map(op => (
+                <MenuItem key={op} value={op}>{op}</MenuItem>
               ))}
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField type="date" fullWidth label="Data de Abertura" name="dataAbertura" value={formData.dataAbertura} onChange={handleChange} InputLabelProps={{ shrink: true }} />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField type="date" fullWidth label="Data de Conclusão" name="dataConclusao" value={formData.dataConclusao} onChange={handleChange} InputLabelProps={{ shrink: true }} />
+          <Grid item xs={12}>
+            <TextField
+              label="Descrição Resumida do Objeto"
+              name="descricaoResumidaObjeto"
+              multiline
+              minRows={3}
+              fullWidth
+              value={formData.descricaoResumidaObjeto}
+              onChange={handleChange}
+              sx={{ width: '100%', minWidth: 300 }}
+            />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth label="Descrição Resumida" name="descricaoResumidaObjeto" value={formData.descricaoResumidaObjeto} onChange={handleChange} multiline />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="Matrícula do Responsável" name="fkFuncionarioMatriculaResponsavelPrincipal" value={formData.fkFuncionarioMatriculaResponsavelPrincipal} onChange={handleChange} />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="ID da Denúncia de Origem" name="fkDenunciaIdOrigem" value={formData.fkDenunciaIdOrigem} onChange={handleChange} />
+            <TextField
+              select
+              label="Responsável Principal"
+              name="fkFuncionarioMatriculaResponsavelPrincipal"
+              fullWidth
+              value={formData.fkFuncionarioMatriculaResponsavelPrincipal}
+              onChange={handleChange}
+              sx={{ width: '100%', minWidth: 300 }}
+            >
+              {funcionarios.map(f => (
+                <MenuItem key={f.matricula} value={f.matricula}>{f.nome} ({f.matricula})</MenuItem>
+              ))}
+            </TextField>
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" type="submit" fullWidth>{editing ? "Salvar alterações" : "Cadastrar"}</Button>
+            <TextField
+              select
+              label="Denúncia de Origem"
+              name="fkDenunciaIdOrigem"
+              fullWidth
+              value={formData.fkDenunciaIdOrigem}
+              onChange={handleChange}
+              sx={{ width: '100%', minWidth: 300 }}
+            >
+              {denuncias.map(d => (
+                <MenuItem key={d.idDenuncia} value={d.idDenuncia}>{d.idDenuncia}</MenuItem>
+              ))}
+            </TextField>
           </Grid>
-          {editing && (
-            <Grid item xs={12}>
-              <Button variant="outlined" fullWidth color="secondary" onClick={() => onSubmit(null)}>Cancelar edição</Button>
-            </Grid>
-          )}
+          <Grid item xs={12}>
+            <Button variant="contained" type="submit" fullWidth size="large">
+              {editing ? "Salvar alterações" : "Cadastrar"}
+            </Button>
+          </Grid>
         </Grid>
       </form>
     </Paper>

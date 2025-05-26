@@ -1,172 +1,202 @@
 import { useEffect, useState } from "react";
 import {
-  Container, Typography, MenuItem, Select, FormControl, InputLabel,
-  Checkbox, FormControlLabel, Box, Grid
-} from "@mui/material";
-import axios from "axios";
+  getFuncionarios, getPessoas, getDenuncias, getProcessos,
+  getAtribuicoes, getAtos, getEnvolvimentos
+} from "../services/dashboardService";
 import {
-  PieChart, Pie, Cell, Tooltip, Legend,
-  BarChart, Bar, XAxis, YAxis, CartesianGrid
+  Typography, Grid, Paper, TextField, MenuItem, Box
+} from "@mui/material";
+import {
+  BarChart, Bar, PieChart, Pie, Cell, Tooltip, XAxis, YAxis, ResponsiveContainer
 } from "recharts";
 
-const cores = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#d0ed57"];
+const cores = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#a4de6c", "#d0ed57"];
+
+function agrupar(array, campo) {
+  const contagem = {};
+  array.forEach(item => {
+    const chave = item[campo] || "Não informado";
+    contagem[chave] = (contagem[chave] || 0) + 1;
+  });
+  return Object.entries(contagem).map(([nome, valor]) => ({ nome, valor }));
+}
 
 export default function DashboardPage() {
-  // Estados para filtros
-  const [statusDenuncia, setStatusDenuncia] = useState("Todos");
-  const [anonimo, setAnonimo] = useState("Todos");
-  const [dadosDenuncia, setDadosDenuncia] = useState([]);
-
-  const [statusProcesso, setStatusProcesso] = useState("Todos");
-  const [dadosProcesso, setDadosProcesso] = useState([]);
-
-  // Fetch para denúncias
-  const fetchDenuncias = async () => {
-    try {
-      const res = await axios.get("http://localhost:8080/denuncias");
-      let lista = res.data;
-
-      if (statusDenuncia !== "Todos") {
-        lista = lista.filter(d => d.statusDenuncia === statusDenuncia);
-      }
-
-      if (anonimo !== "Todos") {
-        const flag = anonimo === "Sim";
-        lista = lista.filter(d => d.denuncianteAnonimo === flag);
-      }
-
-      const contagem = {};
-      lista.forEach(d => {
-        contagem[d.statusDenuncia] = (contagem[d.statusDenuncia] || 0) + 1;
-      });
-
-      const formatado = Object.entries(contagem).map(([status, value]) => ({
-        name: status,
-        value
-      }));
-
-      setDadosDenuncia(formatado);
-    } catch (e) {
-      console.error("Erro ao buscar denúncias:", e);
-    }
-  };
-
-  // Fetch para processos
-  const fetchProcessos = async () => {
-    try {
-      const res = await axios.get("http://localhost:8080/processos");
-      let lista = res.data;
-
-      if (statusProcesso !== "Todos") {
-        lista = lista.filter(p => p.statusProcesso === statusProcesso);
-      }
-
-      const contagem = {};
-      lista.forEach(p => {
-        contagem[p.tipoProcesso] = (contagem[p.tipoProcesso] || 0) + 1;
-      });
-
-      const formatado = Object.entries(contagem).map(([tipo, total]) => ({
-        tipo,
-        total
-      }));
-
-      setDadosProcesso(formatado);
-    } catch (e) {
-      console.error("Erro ao buscar processos:", e);
-    }
-  };
+  const [originais, setOriginais] = useState({});
+  const [filtros, setFiltros] = useState({
+    statusDenuncia: "Todos",
+    tipoProcesso: "Todos",
+    statusTarefa: "Todos",
+  });
 
   useEffect(() => {
-    fetchDenuncias();
-  }, [statusDenuncia, anonimo]);
+    Promise.all([
+      getFuncionarios(), getPessoas(), getDenuncias(), getProcessos(),
+      getAtribuicoes(), getAtos(), getEnvolvimentos()
+    ]).then(([funcs, pess, den, proc, atrib, atos, envol]) => {
+      setOriginais({
+        funcionarios: funcs.data,
+        pessoas: pess.data,
+        denuncias: den.data,
+        processos: proc.data,
+        atribuicoes: atrib.data,
+        atos: atos.data,
+        envolvimentos: envol.data
+      });
+    });
+  }, []);
 
-  useEffect(() => {
-    fetchProcessos();
-  }, [statusProcesso]);
+  const handleFiltro = (e) => {
+    setFiltros({ ...filtros, [e.target.name]: e.target.value });
+  };
+
+  const dadosFiltrados = {
+    funcionarios: originais.funcionarios || [],
+    pessoas: originais.pessoas || [],
+    denuncias: (originais.denuncias || []).filter(d =>
+      filtros.statusDenuncia === "Todos" || d.statusDenuncia === filtros.statusDenuncia
+    ),
+    processos: (originais.processos || []).filter(p =>
+      filtros.tipoProcesso === "Todos" || p.tipoProcesso === filtros.tipoProcesso
+    ),
+    atribuicoes: (originais.atribuicoes || []).filter(t =>
+      filtros.statusTarefa === "Todos" || t.statusTarefa === filtros.statusTarefa
+    ),
+    atos: originais.atos || [],
+    envolvimentos: originais.envolvimentos || [],
+  };
+
+  const opcoesDenuncia = ["Todos", "Recebida", "Em Análise", "Arquivada", "Procedente", "Improcedente"];
+  const opcoesProcesso = ["Todos", "Sindicância", "PAD", "Inquérito Policial", "Verificação Preliminar"];
+  const opcoesTarefa = ["Todos", "Pendente", "Em Andamento", "Concluída"];
+
+  const renderGrafico = (tipo, dados, corIndex = 0) => {
+    if (tipo === "bar") {
+      return (
+        <ResponsiveContainer width="100%" height={250}>
+          <BarChart data={dados} layout="vertical">
+            <XAxis type="number" />
+            <YAxis dataKey="nome" type="category" />
+            <Tooltip />
+            <Bar dataKey="valor" fill={cores[corIndex % cores.length]} />
+          </BarChart>
+        </ResponsiveContainer>
+      );
+    }
+    if (tipo === "pie") {
+      return (
+        <ResponsiveContainer width="100%" height={250}>
+          <PieChart>
+            <Pie data={dados} dataKey="valor" nameKey="nome" outerRadius={100} label>
+              {dados.map((_, i) => (
+                <Cell key={i} fill={cores[i % cores.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
+      );
+    }
+    return null;
+  };
+
+  const renderSecao = (titulo, tipo, dados, filtroJSX = null, corIndex = 0) => (
+    <Paper sx={{ p: 2, mb: 3 }}>
+      <Grid container spacing={2} alignItems="flex-start">
+        <Grid item xs={12} md={8}>
+          <Typography variant="h6" gutterBottom>{titulo}</Typography>
+          {renderGrafico(tipo, dados, corIndex)}
+        </Grid>
+        {filtroJSX && (
+          <Grid item xs={12} md={4}>
+            {filtroJSX}
+          </Grid>
+        )}
+      </Grid>
+    </Paper>
+  );
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom>Dashboard Interativa</Typography>
+    <Box sx={{ mt: 3 }}>
+      {renderSecao(
+        "Funcionários por Cargo",
+        "bar",
+        agrupar(dadosFiltrados.funcionarios, "tipoFuncionario"),
+        null,
+        0
+      )}
 
-      <Grid container spacing={4}>
+      {renderSecao(
+        "Denúncias por Status",
+        "pie",
+        agrupar(dadosFiltrados.denuncias, "statusDenuncia"),
+        <TextField
+          select
+          fullWidth
+          label="Status da Denúncia"
+          name="statusDenuncia"
+          value={filtros.statusDenuncia}
+          onChange={handleFiltro}
+        >
+          {opcoesDenuncia.map(op => <MenuItem key={op} value={op}>{op}</MenuItem>)}
+        </TextField>,
+        1
+      )}
 
-        {/* GRÁFICO DE DENÚNCIAS */}
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" gutterBottom>Denúncias por Status</Typography>
+      {renderSecao(
+        "Processos por Tipo",
+        "bar",
+        agrupar(dadosFiltrados.processos, "tipoProcesso"),
+        <TextField
+          select
+          fullWidth
+          label="Tipo de Processo"
+          name="tipoProcesso"
+          value={filtros.tipoProcesso}
+          onChange={handleFiltro}
+        >
+          {opcoesProcesso.map(op => <MenuItem key={op} value={op}>{op}</MenuItem>)}
+        </TextField>,
+        2
+      )}
 
-          <FormControl fullWidth sx={{ mb: 2 }}>
-            <InputLabel>Status</InputLabel>
-            <Select value={statusDenuncia} label="Status" onChange={e => setStatusDenuncia(e.target.value)}>
-              <MenuItem value="Todos">Todos</MenuItem>
-              <MenuItem value="Recebida">Recebida</MenuItem>
-              <MenuItem value="Em Análise">Em Análise</MenuItem>
-              <MenuItem value="Arquivada">Arquivada</MenuItem>
-              <MenuItem value="Procedente">Procedente</MenuItem>
-              <MenuItem value="Improcedente">Improcedente</MenuItem>
-            </Select>
-          </FormControl>
+      {renderSecao(
+        "Tarefas por Status",
+        "bar",
+        agrupar(dadosFiltrados.atribuicoes, "statusTarefa"),
+        <TextField
+          select
+          fullWidth
+          label="Status da Tarefa"
+          name="statusTarefa"
+          value={filtros.statusTarefa}
+          onChange={handleFiltro}
+        >
+          {opcoesTarefa.map(op => <MenuItem key={op} value={op}>{op}</MenuItem>)}
+        </TextField>,
+        3
+      )}
 
-          <FormControlLabel
-            control={
-              <Select value={anonimo} onChange={e => setAnonimo(e.target.value)}>
-                <MenuItem value="Todos">Todos</MenuItem>
-                <MenuItem value="Sim">Sim</MenuItem>
-                <MenuItem value="Não">Não</MenuItem>
-              </Select>
-            }
-            label="Denunciante anônimo"
-            sx={{ mb: 2, display: "block" }}
-          />
+      {renderSecao(
+        "Atos por Tipo",
+        "pie",
+        agrupar(dadosFiltrados.atos, "tipoAtoDocumento"),
+        null,
+        4
+      )}
 
-          <Box display="flex" justifyContent="center">
-            <PieChart width={400} height={300}>
-              <Pie
-                data={dadosDenuncia}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                label
-              >
-                {dadosDenuncia.map((_, i) => (
-                  <Cell key={i} fill={cores[i % cores.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </Box>
-        </Grid>
+      {renderSecao(
+        "Envolvimentos por Papel",
+        "bar",
+        agrupar(dadosFiltrados.envolvimentos, "papelNoProcesso"),
+        null,
+        5
+      )}
 
-        {/* GRÁFICO DE PROCESSOS */}
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" gutterBottom>Processos por Tipo</Typography>
-
-          <FormControl fullWidth sx={{ mb: 2 }}>
-            <InputLabel>Status</InputLabel>
-            <Select value={statusProcesso} label="Status" onChange={e => setStatusProcesso(e.target.value)}>
-              <MenuItem value="Todos">Todos</MenuItem>
-              <MenuItem value="Em Andamento">Em Andamento</MenuItem>
-              <MenuItem value="Concluído">Concluído</MenuItem>
-              <MenuItem value="Arquivado">Arquivado</MenuItem>
-              <MenuItem value="Suspenso">Suspenso</MenuItem>
-            </Select>
-          </FormControl>
-
-          <Box display="flex" justifyContent="center">
-            <BarChart width={400} height={300} data={dadosProcesso}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="tipo" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="total" fill="#8884d8" />
-            </BarChart>
-          </Box>
-        </Grid>
-      </Grid>
-    </Container>
+      <Paper sx={{ p: 2, textAlign: "center" }}>
+        <Typography variant="h6">Total de Pessoas Cadastradas</Typography>
+        <Typography variant="h3" sx={{ mt: 2 }}>{dadosFiltrados.pessoas.length}</Typography>
+      </Paper>
+    </Box>
   );
 }
