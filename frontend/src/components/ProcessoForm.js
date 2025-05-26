@@ -149,7 +149,7 @@ export default function ProcessoForm({ onSubmit, initialData, editing }) {
           <Grid item xs={12}>
             <TextField
               select
-              label="Responsável Principal"
+              label="Funcionário Responsável Principal"
               name="fkFuncionarioMatriculaResponsavelPrincipal"
               fullWidth
               value={formData.fkFuncionarioMatriculaResponsavelPrincipal}

@@ -131,7 +131,7 @@ export default function DenunciaForm({ onSubmit, initialData, editing }) {
           <Grid item xs={12}>
             <TextField
               select
-              label="Registrado por"
+              label="Funcionário que Registrou"
               name="fkFuncionarioMatriculaRegistrou"
               fullWidth
               size="medium"
