@@ -1,11 +1,12 @@
 DELIMITER //
-CREATE TRIGGER set_status_default_denuncia
+CREATE TRIGGER set_data_registro_padrao
 BEFORE INSERT ON Denuncia
 FOR EACH ROW
 BEGIN
-    IF NEW.status_denuncia IS NULL OR NEW.status_denuncia = '' THEN
-        SET NEW.status_denuncia = 'Recebida';
+    IF NEW.data_registro_sistema IS NULL THEN
+        SET NEW.data_registro_sistema = NOW();
     END IF;
 END;
 //
 DELIMITER ;
+
