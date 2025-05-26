@@ -1,4 +1,3 @@
-//OK
 package com.api.ProjetoBD.Repositories;
 
 import com.api.ProjetoBD.models.FuncionarioModel;
@@ -18,6 +17,7 @@ public class FuncionarioRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    // Mapeia os dados retornados do banco para o objeto FuncionarioModel
     private FuncionarioModel mapRow(ResultSet rs, int rowNum) throws SQLException {
         FuncionarioModel f = new FuncionarioModel();
         f.setMatricula(rs.getString("matricula"));
@@ -27,8 +27,9 @@ public class FuncionarioRepository {
         return f;
     }
 
+    // Agora usando a procedure listar_funcionarios()
     public List<FuncionarioModel> listarTodos() {
-        String sql = "SELECT * FROM Funcionario";
+        String sql = "CALL listar_funcionarios()";
         return jdbcTemplate.query(sql, this::mapRow);
     }
 
