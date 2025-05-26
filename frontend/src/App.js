@@ -14,7 +14,6 @@ import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CorregedoriasPage from "./pages/CorregedoriasPage";
 
-
 function AppBarNav() {
   const { usuario, logout } = useUser();
 
@@ -24,7 +23,7 @@ function AppBarNav() {
         {usuario && (
           <>
             <Button color="inherit" component={Link} to="/home">Home</Button>
-            {usuario.tipo === "admin" && (
+            {usuario.tipo !== "pessoa" && (
               <>
                 <Button color="inherit" component={Link} to="/corregedorias">Corregedorias</Button>
                 <Button color="inherit" component={Link} to="/funcionarios">Funcionários</Button>
@@ -48,8 +47,6 @@ function AppBarNav() {
 }
 
 function AppRoutes() {
-  const { usuario } = useUser();
-
   return (
     <>
       <AppBarNav />
@@ -58,34 +55,16 @@ function AppRoutes() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
 
-          <Route path="/funcionarios" element={
-            <ProtectedRoute tipo="admin"><FuncionariosPage /></ProtectedRoute>
-          } />
-          <Route path="/pessoas" element={
-            <ProtectedRoute tipo="admin"><PessoasPage /></ProtectedRoute>
-          } />
-          <Route path="/denuncias" element={
-            <ProtectedRoute tipo="admin"><DenunciasPage /></ProtectedRoute>
-          } />
-          <Route path="/processos" element={
-            <ProtectedRoute tipo="admin"><ProcessosPage /></ProtectedRoute>
-          } />
-          <Route path="/atribuicoes" element={
-            <ProtectedRoute tipo="admin"><AtribuicoesPage /></ProtectedRoute>
-          } />
-          <Route path="/atos" element={
-            <ProtectedRoute tipo="admin"><AtosPage /></ProtectedRoute>
-          } />
-          <Route path="/envolvimentos" element={
-            <ProtectedRoute tipo="admin"><EnvolvimentosPage /></ProtectedRoute>
-          } />
-          <Route path="/dashboard" element={
-            <ProtectedRoute tipo="admin"><DashboardPage /></ProtectedRoute>
-          } />
-          <Route path="/corregedorias" element={
-            <ProtectedRoute tipo="admin"><CorregedoriasPage /></ProtectedRoute>
-          } />
-
+          {/* Agora permitido para funcionarios e admins */}
+          <Route path="/funcionarios" element={<ProtectedRoute><FuncionariosPage /></ProtectedRoute>} />
+          <Route path="/pessoas" element={<ProtectedRoute><PessoasPage /></ProtectedRoute>} />
+          <Route path="/denuncias" element={<ProtectedRoute><DenunciasPage /></ProtectedRoute>} />
+          <Route path="/processos" element={<ProtectedRoute><ProcessosPage /></ProtectedRoute>} />
+          <Route path="/atribuicoes" element={<ProtectedRoute><AtribuicoesPage /></ProtectedRoute>} />
+          <Route path="/atos" element={<ProtectedRoute><AtosPage /></ProtectedRoute>} />
+          <Route path="/envolvimentos" element={<ProtectedRoute><EnvolvimentosPage /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+          <Route path="/corregedorias" element={<ProtectedRoute><CorregedoriasPage /></ProtectedRoute>} />
         </Routes>
       </Container>
     </>
