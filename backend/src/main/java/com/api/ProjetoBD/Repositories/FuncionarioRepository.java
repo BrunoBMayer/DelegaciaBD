@@ -28,10 +28,12 @@ public class FuncionarioRepository {
     }
 
     // Agora usando a procedure listar_funcionarios()
+    // Usando SELECT direto
     public List<FuncionarioModel> listarTodos() {
-        String sql = "CALL listar_funcionarios()";
+        String sql = "SELECT * FROM Funcionario";
         return jdbcTemplate.query(sql, this::mapRow);
     }
+
 
     public void salvar(FuncionarioModel f) {
         String sql = "INSERT INTO Funcionario (matricula, nome, fk_Corregedoria_CNPJ, tipo_funcionario) VALUES (?, ?, ?, ?)";
