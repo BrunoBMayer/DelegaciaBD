@@ -154,7 +154,7 @@ Este projeto é um sistema de gerenciamento interno para uma **Corregedoria**, d
     
     O backend estará rodando em http://localhost:8080
 
-💻 Frontend (React)
+### 💻 Frontend (React)
 
 1. Abra outro terminal, vá até a pasta do frontend:
     ```bash
@@ -176,7 +176,7 @@ Este projeto é um sistema de gerenciamento interno para uma **Corregedoria**, d
 A aplicação estará disponível em:
     http://localhost:3000
 
-✅ Observações
+### ✅ Observações
 
   O frontend está configurado para se comunicar com o backend usando um proxy no package.json.
   
