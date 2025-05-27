@@ -179,4 +179,5 @@ A aplicação estará disponível em:
 ✅ Observações
 
   O frontend está configurado para se comunicar com o backend usando um proxy no package.json.
-  Certifique-se que o banco e sua senha do DBeaver estão corretos em application.properties
+  
+  Certifique-se que o banco e sua senha do DBeaver estão corretos em application.properties.
