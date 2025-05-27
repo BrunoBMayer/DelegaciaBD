@@ -179,17 +179,4 @@ A aplicação estará disponível em:
 ✅ Observações
 
   O frontend está configurado para se comunicar com o backend usando um proxy no package.json.
-
-  O login do tipo admin é o único com acesso a todas as funcionalidades.
-
-  Usuários do tipo funcionário ou pessoa têm acesso restrito à própria home e visualização de seus dados.
-
-📁 Estrutura do Projeto
-
-├── backend\
-│   └── src/main/java/com/api/ProjetoBD/...\
-├── frontend/\
-│   ├── src/pages/\
-│   ├── src/components/\
-│   └── package.json\
-└── README.md
+  Certifique-se que o banco e sua senha do DBeaver estão corretos em application.properties
