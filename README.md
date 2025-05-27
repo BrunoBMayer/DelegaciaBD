@@ -181,3 +181,9 @@ A aplicação estará disponível em:
   O frontend está configurado para se comunicar com o backend usando um proxy no package.json.
   
   Certifique-se que o banco e sua senha do DBeaver estão corretos em application.properties.
+
+  Se, depois de ter fechado o front/back, você não poder iniciar a aplicação, verifique se, mesmo fechado, o front ainda está operando na sua máquina através do gerenciador de tarefas (task manager):
+
+  ![github.com/Captura de tela 2025-05-26 235122.png](https://github.com/BrunoBMayer/DelegaciaBD/blob/main/Captura%20de%20tela%202025-05-26%20235122.png)
+
+  Se isto estiver aberto, feche todos os node.js e reinicie o projeto, iniciando o back primeiro.
